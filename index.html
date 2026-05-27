@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>BIJAK LABS — Research • Prototype • Build</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+
+font-family:Inter,sans-serif;
+
+background:
+radial-gradient(circle at top right,#0b1b38,transparent),
+radial-gradient(circle at bottom left,#0c1228,transparent),
+#050816;
+
+color:white;
+
+}
+
+.container{
+
+max-width:1200px;
+
+margin:auto;
+
+padding:0 28px;
+
+}
+
+nav{
+
+position:fixed;
+
+top:0;
+
+width:100%;
+
+background:rgba(5,8,22,.85);
+
+backdrop-filter:blur(18px);
+
+border-bottom:1px solid rgba(255,255,255,.06);
+
+z-index:100;
+
+}
+
+.nav-inner{
+
+height:80px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+}
+
+.logo{
+
+font-size:30px;
+
+font-weight:800;
+
+letter-spacing:2px;
+
+}
+
+.logo span{
+
+color:#67e8f9;
+
+}
+
+.menu{
+
+display:flex;
+
+gap:32px;
+
+}
+
+.menu a{
+
+text-decoration:none;
+
+color:#AAB5C5;
+
+}
+
+.hero{
+
+min-height:100vh;
+
+display:flex;
+
+align-items:center;
+
+}
+
+.badge{
+
+display:inline-block;
+
+padding:10px 18px;
+
+border-radius:999px;
+
+background:#113355;
+
+color:#67e8f9;
+
+margin-bottom:28px;
+
+font-size:14px;
+
+}
+
+.hero h1{
+
+font-size:84px;
+
+line-height:1;
+
+margin-bottom:24px;
+
+}
+
+.gradient{
+
+background:
+linear-gradient(
+90deg,
+#67e8f9,
+#60a5fa);
+
+-webkit-background-clip:text;
+
+-webkit-text-fill-color:transparent;
+
+}
+
+.subtitle{
+
+max-width:850px;
+
+color:#AAB5C5;
+
+font-size:22px;
+
+line-height:1.8;
+
+}
+
+.buttons{
+
+margin-top:42px;
+
+display:flex;
+
+gap:18px;
+
+}
+
+.btn{
+
+padding:16px 30px;
+
+border-radius:16px;
+
+font-weight:700;
+
+text-decoration:none;
+
+}
+
+.primary{
+
+background:#67e8f9;
+
+color:black;
+
+}
+
+.secondary{
+
+border:1px solid rgba(255,255,255,.15);
+
+color:white;
+
+}
+
+.section{
+
+padding:120px 0;
+
+}
+
+.title{
+
+text-align:center;
+
+margin-bottom:70px;
+
+}
+
+.title h2{
+
+font-size:52px;
+
+margin-bottom:12px;
+
+}
+
+.title p{
+
+color:#8FA0B4;
+
+}
+
+.cards{
+
+display:grid;
+
+grid-template-columns:
+
+repeat(
+auto-fit,
+minmax(280px,1fr));
+
+gap:26px;
+
+}
+
+.card{
+
+background:
+
+rgba(255,255,255,.04);
+
+padding:34px;
+
+border-radius:26px;
+
+border:
+
+1px solid rgba(255,255,255,.08);
+
+}
+
+.card:hover{
+
+transform:translateY(-4px);
+
+transition:.3s;
+
+}
+
+.icon{
+
+font-size:42px;
+
+margin-bottom:20px;
+
+}
+
+.card h3{
+
+margin-bottom:16px;
+
+}
+
+.card p{
+
+color:#9BA8BA;
+
+line-height:1.7;
+
+}
+
+.status{
+
+display:inline-block;
+
+padding:8px 14px;
+
+border-radius:999px;
+
+font-size:13px;
+
+background:#18324f;
+
+color:#67e8f9;
+
+margin-bottom:18px;
+
+}
+
+.footer{
+
+padding:70px 0;
+
+border-top:
+
+1px solid rgba(255,255,255,.08);
+
+text-align:center;
+
+}
+
+.footer p{
+
+color:#8FA0B4;
+
+margin-top:12px;
+
+}
+
+@media(max-width:768px){
+
+.hero h1{
+
+font-size:54px;
+
+}
+
+.menu{
+
+display:none;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<nav>
+
+<div class="container nav-inner">
+
+<div class="logo">
+
+BIJAK <span>LABS</span>
+
+</div>
+
+<div class="menu">
+
+<a href="#about">About</a>
+<a href="#focus">Research</a>
+<a href="#projects">Projects</a>
+<a href="#contact">Contact</a>
+
+</div>
+
+</div>
+
+</nav>
+
+<section class="hero">
+
+<div class="container">
+
+<div class="badge">
+
+Research • Prototype • Build
+
+</div>
+
+<h1>
+
+Build the Future
+
+<br>
+
+<span class="gradient">
+
+One Experiment at a Time
+
+</span>
+
+</h1>
+
+<p class="subtitle">
+
+BIJAK LABS is an independent research and experimentation initiative founded by Carso Leong.
+
+Exploring AI, blockchain, cloud platforms, property technology and financial innovation through prototypes, architecture studies and product validation.
+
+</p>
+
+<div class="buttons">
+
+<a href="#projects" class="btn primary">
+
+Explore Projects
+
+</a>
+
+<a href="#contact" class="btn secondary">
+
+Contact
+
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+<section
+id="about"
+class="section">
+
+<div class="container">
+
+<div class="title">
+
+<h2>
+
+About BIJAK LABS
+
+</h2>
+
+<p>
+
+Independent research initiative.
+
+Selected projects may evolve into standalone ventures in the future.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<section
+id="focus"
+class="section">
+
+<div class="container">
+
+<div class="title">
+
+<h2>
+
+Research Areas
+
+</h2>
+
+</div>
+
+<div class="cards">
+
+<div class="card">
+
+<div class="icon">🧠</div>
+
+<h3>
+
+Artificial Intelligence
+
+</h3>
+
+<p>
+
+Intelligent systems, forecasting, recommendation engines and automation.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<div class="icon">🔗</div>
+
+<h3>
+
+Blockchain & Trust
+
+</h3>
+
+<p>
+
+Digital trust, verification and secure platform concepts.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<div class="icon">☁️</div>
+
+<h3>
+
+Cloud Platforms
+
+</h3>
+
+<p>
+
+Cloud-native architecture and scalable systems.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<div class="icon">🏠</div>
+
+<h3>
+
+Property & Finance
+
+</h3>
+
+<p>
+
+Future digital experiences and intelligent decision platforms.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section
+id="projects"
+class="section">
+
+<div class="container">
+
+<div class="title">
+
+<h2>
+
+Project Labs
+
+</h2>
+
+</div>
+
+<div class="cards">
+
+<div class="card">
+
+<div class="status">
+
+Research
+
+</div>
+
+<h3>
+
+BIJAK Invest
+
+</h3>
+
+<p>
+
+Probability-based investment intelligence and forecasting.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<div class="status">
+
+Prototype
+
+</div>
+
+<h3>
+
+BIJAK Trust
+
+</h3>
+
+<p>
+
+Blockchain-enabled trust and verification concepts.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<div class="status">
+
+Concept
+
+</div>
+
+<h3>
+
+BIJAK Property
+
+</h3>
+
+<p>
+
+Exploring intelligent property technology experiences.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section
+id="contact"
+class="section">
+
+<div class="container">
+
+<div class="title">
+
+<h2>
+
+Contact
+
+</h2>
+
+<p>
+
+Carso Leong
+
+<br><br>
+
+Independent Research Initiative
+
+<br><br>
+
+hello@bijak.dev
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<footer class="footer">
+
+<div class="container">
+
+<h3>
+
+BIJAK LABS
+
+</h3>
+
+<p>
+
+Research • Prototype • Build
+
+</p>
+
+<p>
+
+© 2026 BIJAK LABS
+
+</p>
+
+<p>
+
+Independent technology research initiative.
+
+</p>
+
+</div>
+
+</footer>
+
+</body>
+
+</html>
