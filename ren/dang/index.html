@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Dang Chee Chean | Premium Real Estate Advisory</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Dr. Dang Chee Chean is a Registered Real Estate Negotiator (REN) with IX Realty Agency, specializing in Kuala Lumpur City Centre (KLCC) luxury properties, branded residences, and new developments like Armani Prestige and Divine KLCC.">
+    <meta name="keywords" content="KLCC property, Kuala Lumpur real estate, Armani Prestige, Armani Hallson KLCC, Divine KLCC, luxury condo KL, property investment Malaysia, Dr. Dang Chee Chean, IX Realty Agency, KL Golden Triangle">
+    <meta name="author" content="Dr. Dang Chee Chean">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph / Social Sharing for better link previews -->
+    <meta property="og:title" content="Dr. Dang Chee Chean | Premium KLCC Real Estate Advisory">
+    <meta property="og:description" content="Strategic property advisory in the heart of Kuala Lumpur's Golden Triangle. Discover exclusive new developments and high-yield investments.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="img/DrDang-profile.png">
+    <meta property="og:locale" content="en_US">
+    
+    <!-- AI & Search Engine Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "RealEstateAgent",
+      "name": "Dr. Dang Chee Chean",
+      "image": "img/DrDang-profile.png",
+      "description": "Registered Real Estate Negotiator (REN) specializing in KLCC luxury properties and new developments.",
+      "parentOrganization": {
+        "@type": "Organization",
+        "name": "IX Realty Agency Sdn Bhd",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "No 10-3, Level 10, Subplace Boulevard, No. 6, Jalan Juruanalisis U1/35, Seksyen U1",
+          "addressLocality": "Shah Alam",
+          "addressRegion": "Selangor",
+          "postalCode": "40150",
+          "addressCountry": "MY"
+        },
+        "url": "https://ixgroup.my/"
+      },
+      "telephone": "+60167508968",
+      "knowsLanguage": ["English", "Chinese", "Japanese", "Malay"],
+      "areaServed": {
+        "@type": "City",
+        "name": "Kuala Lumpur City Centre (KLCC)",
+        "sameAs": "https://en.wikipedia.org/wiki/Kuala_Lumpur_City_Centre"
+      },
+      "makesOffer": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Product",
+            "name": "Armani Prestige",
+            "description": "59-storey freehold luxury tower near Petronas Twin Towers in KL Golden Triangle."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Product",
+            "name": "Armani Hallson KLCC",
+            "description": "Freehold SOHO and SOVO luxury development 300m from KLCC."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Product",
+            "name": "Divine KLCC",
+            "description": "Premium property development by Chin Hin Group in Kuala Lumpur."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            400: '#D4AF37',
+                            500: '#C5A028',
+                            600: '#AA8A22',
+                        },
+                        dark: '#121212',
+                        slate: {
+                            850: '#1e293b',
+                            900: '#0f172a',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        h1, h2, h3, h4, .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .property-card:hover .property-img {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 antialiased selection:bg-gold-500 selection:text-white">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md shadow-sm transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <div class="w-10 h-10 bg-dark text-gold-400 rounded-full flex items-center justify-center font-serif font-bold text-xl">D</div>
+                    <span class="font-serif font-bold text-xl tracking-wide text-dark">Dr. Dang</span>
+                </div>
+                <div class="hidden md:flex space-x-6 items-center">
+                    <a href="#about" class="text-gray-600 hover:text-gold-500 transition-colors font-medium text-sm uppercase tracking-wider" data-i18n="nav_profile">Profile</a>
+                    <a href="#properties" class="text-gray-600 hover:text-gold-500 transition-colors font-medium text-sm uppercase tracking-wider" data-i18n="nav_properties">Properties</a>
+                    
+                    <!-- Language Switcher -->
+                    <div class="relative flex items-center border-l border-gray-300 pl-6 ml-2">
+                        <i class="fas fa-globe text-gray-400 mr-2"></i>
+                        <select id="lang-switch" onchange="changeLanguage(this.value)" class="bg-transparent text-gray-700 text-sm font-medium outline-none cursor-pointer hover:text-gold-500 transition-colors">
+                            <option value="en">English</option>
+                            <option value="zh">中文</option>
+                            <option value="ja">日本語</option>
+                            <option value="ms">Bahasa Melayu</option>
+                        </select>
+                    </div>
+
+                    <a id="nav-whatsapp-link" href="#" target="_blank" class="bg-dark text-white px-6 py-2.5 rounded-full hover:bg-gold-500 transition-colors font-medium text-sm uppercase tracking-wider flex items-center gap-2">
+                        <i class="fab fa-whatsapp text-lg"></i> <span data-i18n="nav_contact">Contact</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+klcc-skyline    <section class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="img/klcc-skyline.png" alt="Kuala Lumpur City Centre (KLCC) Skyline - Prime Real Estate Market" class="w-full h-full object-cover" />
+            <div class="absolute inset-0 bg-gradient-to-r from-dark/90 to-dark/40"></div>
+        </div>
+
+        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto mt-16">
+            <p class="text-gold-400 font-medium tracking-[0.2em] uppercase mb-4 text-sm md:text-base" data-i18n="hero_subtitle">Excellence in Healthcare & Real Estate</p>
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
+                Dr. Dang Chee Chean
+            </h1>
+            <p class="text-lg md:text-xl text-gray-200 mb-10 max-w-2xl mx-auto font-light leading-relaxed" data-i18n="hero_desc">
+                Registered Real Estate Negotiator (REN) providing strategic property advisory in the heart of Kuala Lumpur's Golden Triangle.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#properties" class="bg-gold-500 text-white px-8 py-4 rounded-sm hover:bg-gold-600 transition-colors font-medium tracking-wide" data-i18n="btn_explore">
+                    Explore Properties
+                </a>
+                <a id="hero-whatsapp-link" href="#" target="_blank" class="bg-white/10 backdrop-blur-sm text-white border border-white/30 px-8 py-4 rounded-sm hover:bg-white hover:text-dark transition-all font-medium tracking-wide flex items-center justify-center gap-2">
+                    <i class="fab fa-whatsapp text-xl"></i> <span data-i18n="btn_talk">Let's Talk</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div class="relative">
+                    <div class="aspect-[3/4] rounded-lg overflow-hidden shadow-2xl relative z-10">
+                        <img src="img/DrDang-profile.png" alt="Dr. Dang Chee Chean, KLCC Premium Real Estate Negotiator" class="w-full h-full object-cover">
+                    </div>
+                    <div class="absolute -bottom-8 -right-8 w-64 h-64 bg-gold-400/10 rounded-full blur-3xl z-0"></div>
+                    <div class="absolute -top-8 -left-8 w-32 h-32 border-t-4 border-l-4 border-gold-400 z-20"></div>
+                </div>
+                
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-dark mb-6" data-i18n="about_title">About Dr. Dang</h2>
+                    <div class="w-16 h-1 bg-gold-500 mb-8"></div>
+                    
+                    <div class="space-y-6 text-gray-600 leading-relaxed text-lg font-light">
+                        <p data-i18n="about_p1">
+                            Dr. Dang Chee Chean is a highly respected healthcare professional with extensive experience in the pharmaceutical and oncology sector. Throughout his professional career, he has demonstrated a strong commitment to patient care, clinical excellence, and healthcare innovation, earning recognition as a leader within his field.
+                        </p>
+                        <p data-i18n="about_p2">
+                            Beyond his achievements in healthcare, Dr. Dang is also a registered Real Estate Negotiator (REN) who pursues his passion for real estate during his personal time. His interest in property investment, market trends, and helping clients make informed property decisions has enabled him to develop valuable expertise in the real estate industry.
+                        </p>
+                        <p class="font-medium text-gold-600 bg-gold-50 p-4 border-l-4 border-gold-500 rounded-r-sm" data-i18n="about_agency">
+                            Dr. Dang Chee Chean is a Registered Real Estate Negotiator (REN) under IX Realty Agency Sdn Bhd.
+                        </p>
+                        <p data-i18n="about_p3">
+                            Combining the analytical mindset of a healthcare professional with the strategic thinking required in property advisory, Dr. Dang brings a unique perspective to the real estate market. He is known for his professionalism, integrity, attention to detail, and commitment to understanding the needs of his clients.
+                        </p>
+                        <p data-i18n="about_p4">
+                            Whether assisting property buyers, investors, or homeowners, Dr. Dang approaches every engagement with the same dedication and care that have defined his healthcare career. His ability to balance a demanding professional role while actively contributing to the real estate sector reflects his passion for continuous learning, entrepreneurship, and helping others achieve their goals.
+                        </p>
+                        <p class="font-medium text-dark pt-2 border-t border-gray-100" data-i18n="about_p5">
+                            Today, Dr. Dang continues to inspire those around him through his dual commitment to healthcare excellence and real estate advisory.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why KLCC Section -->
+    <section id="why-klcc" class="py-24 bg-slate-50 border-t border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 max-w-4xl mx-auto">
+                <p class="text-gold-500 font-medium tracking-[0.2em] uppercase mb-2 text-sm" data-i18n="why_klcc_subtitle">The Undisputed Epicentre of Global Prestige</p>
+                <h2 class="text-3xl md:text-5xl font-bold text-dark mb-6" data-i18n="why_klcc_title">Why KLCC @ Kuala Lumpur ?</h2>
+                <div class="w-24 h-1 bg-gold-500 mx-auto mb-8"></div>
+                <p class="text-gray-600 font-light leading-relaxed text-lg" data-i18n="why_klcc_intro">
+                    Kuala Lumpur City Centre (KLCC) remains Malaysia’s most iconic and resilient real estate market. In 2026, it is not just a business district; it is a globally recognized symbol of luxury living, often compared to world-class destinations like Orchard Road in Singapore or Central Park in New York. For investors and homeowners alike, a KLCC address offers a unique combination of wealth preservation, unmatched connectivity, and a vibrant urban lifestyle.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <!-- Point 1 -->
+                <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                    <div class="w-12 h-12 bg-gold-50 text-gold-500 rounded-full flex items-center justify-center mb-6 text-xl">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-dark mb-4 font-serif" data-i18n="why_klcc_p1_title">1. A Resilient "Flight to Quality" Asset</h3>
+                    <p class="text-gray-600 font-light leading-relaxed mb-4" data-i18n="why_klcc_p1_desc">While the broader residential market faces challenges, the prime tier in KLCC has successfully decoupled from mass-market trends. In 2026, there is a clear "flight to quality," where demand is concentrated in high-specification, low-density, and professionally managed luxury residences.</p>
+                    <ul class="text-sm text-gray-600 space-y-3 font-light">
+                        <li class="flex items-start gap-3"><i class="fas fa-check text-gold-500 mt-1"></i> <span data-i18n="why_klcc_p1_b1"><strong>Wealth Preservation:</strong> KLCC is considered a secure zone for capital protection, offering steady and predictable annual capital appreciation of 3% to 5%.</span></li>
+                        <li class="flex items-start gap-3"><i class="fas fa-check text-gold-500 mt-1"></i> <span data-i18n="why_klcc_p1_b2"><strong>High Rental Potential:</strong> Properties optimized for short-term rental platforms in the city center can see projected rental returns as high as 12% to 15%, while stable multi-year leases typically yield 3% to 5%.</span></li>
+                    </ul>
+                </div>
+                <!-- Point 2 -->
+                <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                    <div class="w-12 h-12 bg-gold-50 text-gold-500 rounded-full flex items-center justify-center mb-6 text-xl">
+                        <i class="fas fa-subway"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-dark mb-4 font-serif" data-i18n="why_klcc_p2_title">2. Multi-Layered Transit Connectivity</h3>
+                    <p class="text-gray-600 font-light leading-relaxed mb-4" data-i18n="why_klcc_p2_desc">KLCC has "leveled up" its infrastructure, making it more accessible than ever before.</p>
+                    <ul class="text-sm text-gray-600 space-y-3 font-light">
+                        <li class="flex items-start gap-3"><i class="fas fa-check text-gold-500 mt-1"></i> <span data-i18n="why_klcc_p2_b1"><strong>The Dual-Rail Advantage:</strong> The precinct is served by the established Kelana Jaya LRT line and the new MRT Putrajaya Line. The Persiaran KLCC MRT station acts as a central gateway, providing direct, driverless transit links to the administrative capital of Putrajaya and the Cyberjaya tech hub.</span></li>
+                        <li class="flex items-start gap-3"><i class="fas fa-check text-gold-500 mt-1"></i> <span data-i18n="why_klcc_p2_b2"><strong>Strategic Road Links:</strong> The newly fully operational Setiawangsa–Pantai Expressway (SPE) serves as a central city bypass, reducing peak travel times by up to 30% and linking northern and southern hubs directly to the KLCC core.</span></li>
+                    </ul>
+                </div>
+                <!-- Point 3 -->
+                <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                    <div class="w-12 h-12 bg-gold-50 text-gold-500 rounded-full flex items-center justify-center mb-6 text-xl">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-dark mb-4 font-serif" data-i18n="why_klcc_p3_title">3. Urban Livability: The "Green Core"</h3>
+                    <p class="text-gray-600 font-light leading-relaxed mb-4" data-i18n="why_klcc_p3_desc">At the heart of this high-density corporate environment is the 50-acre KLCC Park, a lush urban sanctuary designed by Roberto Burle Marx.</p>
+                    <ul class="text-sm text-gray-600 space-y-3 font-light">
+                        <li class="flex items-start gap-3"><i class="fas fa-check text-gold-500 mt-1"></i> <span data-i18n="why_klcc_p3_b1"><strong>The City’s Lungs:</strong> Residents enjoy 1.3 kilometers of rubberized jogging tracks, over 1,900 indigenous trees, and the iconic Symphony Lake.</span></li>
+                        <li class="flex items-start gap-3"><i class="fas fa-check text-gold-500 mt-1"></i> <span data-i18n="why_klcc_p3_b2"><strong>A Lifestyle Ecosystem:</strong> Living in KLCC means being steps away from Suria KLCC’s international flagship stores, world-class dining, and cultural landmarks like the ILHAM Gallery and the Petronas Philharmonic Hall.</span></li>
+                    </ul>
+                </div>
+                <!-- Point 4 -->
+                <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                    <div class="w-12 h-12 bg-gold-50 text-gold-500 rounded-full flex items-center justify-center mb-6 text-xl">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-dark mb-4 font-serif" data-i18n="why_klcc_p4_title">4. The Branded Residence Revolution</h3>
+                    <p class="text-gray-600 font-light leading-relaxed" data-i18n="why_klcc_p4_desc">The current market trend heavily favors branded and ultra-prime residences. Today’s luxury buyers prioritize properties that offer hospitality-linked services, sustainability certifications, and superior building management. Projects that align with these standards, such as those in the Armani and Divine portfolios, fit perfectly into the 2026 preference for quality and lifestyle over speculative volume.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Price Benchmark Section -->
+    <section id="benchmark" class="py-24 bg-white border-t border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 max-w-4xl mx-auto">
+                <p class="text-gold-500 font-medium tracking-[0.2em] uppercase mb-2 text-sm" data-i18n="bench_subtitle">Market Analysis</p>
+                <h2 class="text-3xl md:text-5xl font-bold text-dark mb-6" data-i18n="bench_title">Price Benchmark 2025-2026</h2>
+                <div class="w-24 h-1 bg-gold-500 mx-auto mb-8"></div>
+                <p class="text-gray-600 font-light leading-relaxed text-lg" data-i18n="bench_intro">
+                    Drawing on the provided sources, here is a summary of key residential and commercial properties in the Kuala Lumpur City Centre (KLCC) and Golden Triangle area, including their price benchmarks, rental ranges, and yields as of the 2025–2026 period.
+                </p>
+            </div>
+
+            <!-- Residential Table -->
+            <div class="mb-16">
+                <h3 class="text-2xl font-bold text-dark mb-2 font-serif" data-i18n="bench_res_title">Existing Branded and Ultra-Prime Residences in KLCC</h3>
+                <p class="text-gray-600 font-light mb-6" data-i18n="bench_res_desc">The luxury residential market in KLCC is characterized by "trophy assets" and branded residences that offer high-end hospitality services and superior management.</p>
+                <div class="overflow-x-auto shadow-sm rounded-lg border border-gray-200">
+                    <table class="w-full text-left border-collapse min-w-[700px]">
+                        <thead>
+                            <tr class="bg-slate-50 border-b border-gray-200">
+                                <th class="p-4 font-semibold text-dark" data-i18n="bench_th_prop">Property Name</th>
+                                <th class="p-4 font-semibold text-dark" data-i18n="bench_th_price">Property Price (Per Sq Ft)</th>
+                                <th class="p-4 font-semibold text-dark" data-i18n="bench_th_yield">Estimated Rental Yield</th>
+                                <th class="p-4 font-semibold text-dark" data-i18n="bench_th_status">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-gray-600 font-light divide-y divide-gray-100">
+                            <tr class="hover:bg-gray-50/50 transition-colors">
+                                <td class="p-4 font-medium text-dark">Ascott Star KLCC</td>
+                                <td class="p-4">RM 2,500 – RM 3,200</td>
+                                <td class="p-4">3% – 5% <span data-i18n="val_steady">(Steady)</span></td>
+                                <td class="p-4"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800" data-i18n="status_completed">Completed</span></td>
+                            </tr>
+                            <tr class="hover:bg-gray-50/50 transition-colors">
+                                <td class="p-4 font-medium text-dark">The Conlay</td>
+                                <td class="p-4">RM 2,200 – RM 2,800</td>
+                                <td class="p-4">3% – 5% <span data-i18n="val_steady">(Steady)</span></td>
+                                <td class="p-4"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800" data-i18n="status_completed">Completed</span></td>
+                            </tr>
+                            <tr class="hover:bg-gray-50/50 transition-colors">
+                                <td class="p-4 font-medium text-dark">Eaton Residences</td>
+                                <td class="p-4">RM 2,000 – RM 2,600</td>
+                                <td class="p-4">3% – 5% <span data-i18n="val_steady">(Steady)</span></td>
+                                <td class="p-4"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800" data-i18n="status_completed">Completed</span></td>
+                            </tr>
+                            <tr class="hover:bg-gray-50/50 transition-colors">
+                                <td class="p-4 font-medium text-dark">The Binjai on the Park</td>
+                                <td class="p-4" data-i18n="status_varies">Price varies by unit</td>
+                                <td class="p-4">3% – 5%</td>
+                                <td class="p-4"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800" data-i18n="status_existing">Existing</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-4 p-4 bg-gold-50 border-l-4 border-gold-500 rounded-r-md">
+                    <p class="text-sm text-gold-700 leading-relaxed font-medium" data-i18n="bench_note">Note: Properties optimized for short-term rental platforms in the city center have higher projected returns, reaching 12% to 15%, compared to stable multi-year leases that typically yield 3% to 5%.</p>
+                </div>
+            </div>
+
+            <!-- Commercial Table -->
+            <div class="mb-16">
+                <h3 class="text-2xl font-bold text-dark mb-2 font-serif" data-i18n="bench_com_title">Commercial and Office Properties in KLCC & Golden Triangle</h3>
+                <p class="text-gray-600 font-light mb-6" data-i18n="bench_com_desc">The office market is currently seeing a "flight to quality," where Grade A and ESG-compliant buildings command higher rents and maintain lower vacancies.</p>
+                <div class="overflow-x-auto shadow-sm rounded-lg border border-gray-200">
+                    <table class="w-full text-left border-collapse min-w-[800px]">
+                        <thead>
+                            <tr class="bg-slate-50 border-b border-gray-200">
+                                <th class="p-4 font-semibold text-dark" data-i18n="bench_th_type">Property/Building Type</th>
+                                <th class="p-4 font-semibold text-dark" data-i18n="bench_th_rent">Rental Range (Per Sq Ft/Month)</th>
+                                <th class="p-4 font-semibold text-dark" data-i18n="bench_th_trans">Transaction Price (Per Sq Ft)</th>
+                                <th class="p-4 font-semibold text-dark" data-i18n="bench_th_feat">Key Features</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-gray-600 font-light divide-y divide-gray-100">
+                            <tr class="hover:bg-gray-50/50 transition-colors">
+                                <td class="p-4 font-medium text-dark">Super Grade A (Golden Triangle)</td>
+                                <td class="p-4">RM 10.00 – RM 15.00</td>
+                                <td class="p-4 text-gray-400" data-i18n="val_na">N/A</td>
+                                <td class="p-4" data-i18n="feat_mod">Modern, ESG-certified</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50/50 transition-colors">
+                                <td class="p-4 font-medium text-dark">Grade A (Golden Triangle)</td>
+                                <td class="p-4">RM 5.00 – RM 9.00</td>
+                                <td class="p-4 text-gray-400" data-i18n="val_na">N/A</td>
+                                <td class="p-4" data-i18n="feat_high">High-spec, transit-linked</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50/50 transition-colors">
+                                <td class="p-4 font-medium text-dark">Oxley Tower @ KLCC</td>
+                                <td class="p-4">RM 10.00 – RM 15.00 <span data-i18n="val_est">(Est)</span></td>
+                                <td class="p-4">RM 1,248 <span data-i18n="val_oct">(Oct 2023)</span></td>
+                                <td class="p-4" data-i18n="status_uc">Under construction (2025)</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50/50 transition-colors">
+                                <td class="p-4 font-medium text-dark">PNB 1194 (Jln Sultan Ismail)</td>
+                                <td class="p-4">RM 5.00 – RM 15.00 <span data-i18n="val_market">(Market)</span></td>
+                                <td class="p-4 text-gray-400" data-i18n="val_na">N/A</td>
+                                <td class="p-4" data-i18n="status_completed_24">Completed 2024</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50/50 transition-colors">
+                                <td class="p-4 font-medium text-dark">Menara Affin (Jln Raja Chulan)</td>
+                                <td class="p-4">RM 5.00 – RM 9.00 (Grade A)</td>
+                                <td class="p-4">RM 498 <span data-i18n="val_apr">(Apr 2024)</span></td>
+                                <td class="p-4" data-i18n="feat_maj">Major transaction</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50/50 transition-colors">
+                                <td class="p-4 font-medium text-dark">Menara AA (Jln Tun Razak)</td>
+                                <td class="p-4">RM 5.00 – RM 9.00 (Grade A)</td>
+                                <td class="p-4">RM 637 <span data-i18n="val_aug">(Aug 2023)</span></td>
+                                <td class="p-4" data-i18n="feat_prime">Existing Prime Stock</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Investment Indicators -->
+            <div>
+                <h3 class="text-2xl font-bold text-dark mb-6 font-serif flex items-center gap-3">
+                    <i class="fas fa-chart-pie text-gold-500"></i> <span data-i18n="bench_ind_title">Investment Indicators for KLCC (2026 Outlook)</span>
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-slate-50 p-6 rounded-lg border border-gray-100">
+                        <p class="text-gray-700 font-light leading-relaxed" data-i18n="bench_ind_1"><strong>Rental Yields:</strong> Steady yields for prime KLCC assets range between 3% and 5%.</p>
+                    </div>
+                    <div class="bg-slate-50 p-6 rounded-lg border border-gray-100">
+                        <p class="text-gray-700 font-light leading-relaxed" data-i18n="bench_ind_2"><strong>Capital Appreciation:</strong> The district maintains a steady and predictable annual capital appreciation of 3% to 5%.</p>
+                    </div>
+                    <div class="bg-slate-50 p-6 rounded-lg border border-gray-100">
+                        <p class="text-gray-700 font-light leading-relaxed" data-i18n="bench_ind_3"><strong>Market Resilience:</strong> While the broader market faces a supply overhang, the prime tier in KLCC has decoupled from these challenges, remaining a secure zone for wealth preservation and capital protection.</p>
+                    </div>
+                    <div class="bg-slate-50 p-6 rounded-lg border border-gray-100">
+                        <p class="text-gray-700 font-light leading-relaxed" data-i18n="bench_ind_4"><strong>Transit Advantage:</strong> Properties within walking distance of the KLCC LRT station or the Persiaran KLCC MRT station (Putrajaya Line) command higher occupancy and rental resilience.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Properties Section -->
+    <section id="properties" class="py-24 bg-slate-50 border-t border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <p class="text-gold-500 font-medium tracking-[0.2em] uppercase mb-2 text-sm" data-i18n="prop_subtitle">Exclusive Portfolio</p>
+                <h2 class="text-3xl md:text-5xl font-bold text-dark" data-i18n="prop_title">Featured Developments</h2>
+                <div class="w-24 h-1 bg-gold-500 mx-auto mt-6"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                
+                <!-- Property 1: Armani Prestige -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-lg group property-card flex flex-col cursor-pointer transition-transform hover:-translate-y-1" onclick="openModal('armani-prestige')">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="img/armani-prestige.jpg" alt="Armani Prestige - 59-storey luxury freehold tower near Petronas Twin Towers KLCC" class="w-full h-full object-cover transition-transform duration-700 property-img">
+                        <div class="absolute top-4 left-4 bg-dark text-white text-xs font-bold px-3 py-1 uppercase tracking-wider rounded-sm" data-i18n="badge_kl">Kuala Lumpur</div>
+                    </div>
+                    <div class="p-8 flex-1 flex flex-col">
+                        <h3 class="text-2xl font-bold text-dark mb-2">Armani Prestige</h3>
+                        <p class="text-[11px] text-gold-600 font-semibold mb-3 bg-gold-50/80 inline-block px-2.5 py-1 rounded border border-gold-200"><span data-i18n="badge_auth">Authorized Agency for project sales by</span> Armani Group</p>
+                        <p class="text-gray-500 text-sm mb-4 flex items-center gap-2">
+                            <i class="fas fa-map-marker-alt text-gold-500"></i> <span data-i18n="loc_prestige">Jalan Mayang, KL Golden Triangle</span>
+                        </p>
+                        <p class="text-gray-600 mb-6 font-light flex-1" id="card-desc-armani-prestige">
+                            An exceptional 59-storey freehold luxury tower situated steps away from the iconic Petronas Twin Towers.
+                        </p>
+                        <a href="#" id="card-wa-armani-prestige" target="_blank" onclick="event.stopPropagation()" class="block w-full text-center border-2 border-dark text-dark hover:bg-dark hover:text-white transition-colors py-3 rounded-sm font-medium data-i18n-btn" data-i18n="btn_req_info">
+                            Request Info via WhatsApp
+                        </a>
+                        <p class="text-[10px] text-gray-400 text-center mt-3 leading-tight" data-i18n="disclaimer">
+                            By clicking, you agree to our privacy policy. Services provided by Dr. Dang, a Registered Real Estate Negotiator under IX Realty Agency Sdn Bhd (Authorized Agency).
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Property 2: Armani Hallson KLCC -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-lg group property-card flex flex-col cursor-pointer transition-transform hover:-translate-y-1" onclick="openModal('armani-hallson')">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="img/armani-hallson.jpg" alt="Armani Hallson KLCC - Freehold SOHO and SOVO near Tun Razak Exchange" class="w-full h-full object-cover transition-transform duration-700 property-img">
+                        <div class="absolute top-4 left-4 bg-dark text-white text-xs font-bold px-3 py-1 uppercase tracking-wider rounded-sm" data-i18n="badge_award">Award Winning</div>
+                    </div>
+                    <div class="p-8 flex-1 flex flex-col">
+                        <h3 class="text-2xl font-bold text-dark mb-2">Armani Hallson KLCC</h3>
+                        <p class="text-[11px] text-gold-600 font-semibold mb-3 bg-gold-50/80 inline-block px-2.5 py-1 rounded border border-gold-200"><span data-i18n="badge_auth">Authorized Agency for project sales by</span> Armani Group</p>
+                        <p class="text-gray-500 text-sm mb-4 flex items-center gap-2">
+                            <i class="fas fa-map-marker-alt text-gold-500"></i> <span data-i18n="loc_hallson">Jalan Ampang, KLCC</span>
+                        </p>
+                        <p class="text-gray-600 mb-6 font-light flex-1" id="card-desc-armani-hallson">
+                            A prestigious freehold 2.6-acre development featuring SOHO and SOVO units, just 300m from KLCC.
+                        </p>
+                        <a href="#" id="card-wa-armani-hallson" target="_blank" onclick="event.stopPropagation()" class="block w-full text-center border-2 border-dark text-dark hover:bg-dark hover:text-white transition-colors py-3 rounded-sm font-medium data-i18n-btn" data-i18n="btn_req_info">
+                            Request Info via WhatsApp
+                        </a>
+                        <p class="text-[10px] text-gray-400 text-center mt-3 leading-tight" data-i18n="disclaimer">
+                            By clicking, you agree to our privacy policy. Services provided by Dr. Dang, a Registered Real Estate Negotiator under IX Realty Agency Sdn Bhd (Authorized Agency).
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Property 3: Divine KLCC -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-lg group property-card flex flex-col cursor-pointer transition-transform hover:-translate-y-1" onclick="openModal('divine-klcc')">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="img/divine-klcc.jpg" alt="Divine KLCC - Premium property development by Chin Hin Group" class="w-full h-full object-cover transition-transform duration-700 property-img">
+                        <div class="absolute top-4 left-4 bg-dark text-white text-xs font-bold px-3 py-1 uppercase tracking-wider rounded-sm" data-i18n="badge_new">New Launch</div>
+                    </div>
+                    <div class="p-8 flex-1 flex flex-col">
+                        <h3 class="text-2xl font-bold text-dark mb-2">Divine KLCC</h3>
+                        <p class="text-[11px] text-gold-600 font-semibold mb-3 bg-gold-50/80 inline-block px-2.5 py-1 rounded border border-gold-200"><span data-i18n="badge_auth">Authorized Agency for project sales by</span> Chin Hin Group</p>
+                        <p class="text-gray-500 text-sm mb-4 flex items-center gap-2">
+                            <i class="fas fa-building text-gold-500"></i> <span data-i18n="loc_divine">Developer: Chin Hin Group</span>
+                        </p>
+                        <p class="text-gray-600 mb-6 font-light flex-1" id="card-desc-divine-klcc">
+                            A premium property development shaping how Malaysians build and live with state-of-the-art construction.
+                        </p>
+                        <a href="#" id="card-wa-divine-klcc" target="_blank" onclick="event.stopPropagation()" class="block w-full text-center border-2 border-dark text-dark hover:bg-dark hover:text-white transition-colors py-3 rounded-sm font-medium data-i18n-btn" data-i18n="btn_req_info">
+                            Request Info via WhatsApp
+                        </a>
+                        <p class="text-[10px] text-gray-400 text-center mt-3 leading-tight" data-i18n="disclaimer">
+                            By clicking, you agree to our privacy policy. Services provided by Dr. Dang, a Registered Real Estate Negotiator under IX Realty Agency Sdn Bhd (Authorized Agency).
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action / Contact -->
+    <section class="py-20 bg-dark relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-gold-500/10 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl"></div>
+        
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
+            <h2 class="text-3xl md:text-5xl font-bold text-white mb-6" data-i18n="cta_title">Ready to make an informed property decision?</h2>
+            <p class="text-gray-300 text-lg mb-10 font-light" data-i18n="cta_desc">
+                Connect with Dr. Dang for strategic advisory tailored to your investment goals or homeownership dreams.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-6 justify-center">
+                <a href="tel:0167508968" class="flex items-center justify-center gap-3 bg-white text-dark px-8 py-4 rounded-sm hover:bg-gray-100 transition-colors font-semibold text-lg">
+                    <i class="fas fa-phone-alt text-gold-500"></i> 016-750 8968
+                </a>
+                <a id="cta-whatsapp-link" href="#" target="_blank" class="flex items-center justify-center gap-3 bg-[#25D366] text-white px-8 py-4 rounded-sm hover:bg-[#20bd5a] transition-colors font-semibold text-lg shadow-lg shadow-[#25D366]/30">
+                    <i class="fab fa-whatsapp text-2xl"></i> <span data-i18n="cta_wa_btn">Chat on WhatsApp</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-gray-400 py-12 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-start gap-8">
+                <div class="flex flex-col gap-4 max-w-md">
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 bg-gold-500 text-dark rounded-full flex items-center justify-center font-serif font-bold">D</div>
+                        <span class="font-serif font-bold text-white tracking-wide">Dr. Dang Chee Chean</span>
+                    </div>
+                    <div class="text-sm">
+                        <span data-i18n="footer_l1">Registered Real Estate Negotiator (REN80477)</span><br>
+                        <!-- <span class="text-white font-semibold mt-3 block text-base">IX Realty Agency Sdn Bhd</span>
+                        <span class="block mt-1 leading-relaxed">No 10-3, Level 10, Subplace Boulevard, No. 6, Jalan Juruanalisis U1/35, Seksyen U1, 40150 Shah Alam, Selangor.</span>
+                        <a href="https://ixgroup.my/" target="_blank" class="text-gold-500 hover:text-gold-400 transition-colors mt-3 inline-flex items-center gap-1.5 font-medium">
+                            <i class="fas fa-external-link-alt text-xs"></i> https://ixgroup.my/
+                        </a> -->
+                    </div>
+                </div>
+                <div class="flex gap-4">
+                    <a href="https://wa.me/60167508968" target="_blank" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-[#25D366] hover:text-white transition-colors">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="tel:0167508968" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-gold-500 hover:text-white transition-colors">
+                        <i class="fas fa-phone"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="mt-12 text-center text-xs border-t border-gray-800 pt-8" data-i18n="footer_copy">
+                &copy; 2026 Dr. Dang Chee Chean. All rights reserved. Information based on respective property developers' materials.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Property Modal -->
+    <div id="propertyModal" class="fixed inset-0 z-[100] items-center justify-center opacity-0 transition-opacity duration-300" style="display: none;">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeModal()"></div>
+        <div class="relative bg-white w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-xl shadow-2xl mx-4 transform scale-95 transition-transform duration-300" id="modalContent">
+            <button onclick="closeModal()" class="absolute top-4 right-4 z-10 w-10 h-10 bg-white/80 backdrop-blur rounded-full flex items-center justify-center text-dark hover:bg-gold-500 hover:text-white transition-colors shadow-sm">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+            <div class="w-full h-64 sm:h-80 relative">
+                <img id="modalImg" src="" alt="Property" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                <h3 id="modalTitle" class="absolute bottom-6 left-6 text-3xl md:text-4xl font-bold text-white font-serif"></h3>
+            </div>
+            <div class="p-6 sm:p-8 space-y-8">
+                <div>
+                    <h4 class="text-gold-500 font-bold uppercase tracking-wider text-sm mb-3 border-b border-gray-100 pb-2" data-i18n="mod_h_intro">Introduction</h4>
+                    <p id="modalIntro" class="text-gray-600 font-light leading-relaxed"></p>
+                </div>
+                <div>
+                    <h4 class="text-gold-500 font-bold uppercase tracking-wider text-sm mb-3 border-b border-gray-100 pb-2" data-i18n="mod_h_why">Why Buy This Property?</h4>
+                    <div id="modalWhyBuy" class="text-gray-600 font-light leading-relaxed"></div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="text-gold-500 font-bold uppercase tracking-wider text-sm mb-3 border-b border-gray-100 pb-2" data-i18n="mod_h_layout">Layout & Configuration</h4>
+                        <p id="modalLayout" class="text-gray-600 font-light leading-relaxed"></p>
+                    </div>
+                    <div>
+                        <h4 class="text-gold-500 font-bold uppercase tracking-wider text-sm mb-3 border-b border-gray-100 pb-2" data-i18n="mod_h_location">Location & Connectivity</h4>
+                        <p id="modalLocation" class="text-gray-600 font-light leading-relaxed"></p>
+                    </div>
+                </div>
+                <div class="pt-6">
+                     <a id="modalWhatsapp" href="#" target="_blank" class="block w-full text-center bg-[#25D366] text-white px-8 py-4 rounded-sm hover:bg-[#20bd5a] transition-colors font-semibold text-lg shadow-lg shadow-[#25D366]/30 flex items-center justify-center gap-3">
+                        <i class="fab fa-whatsapp text-2xl"></i> <span data-i18n="mod_btn_floor">Request Floor Plans & Pricing</span>
+                    </a>
+                    <p class="text-xs text-gray-400 text-center mt-3 leading-relaxed" data-i18n="disclaimer">
+                        By clicking, you agree to our privacy policy. Services provided by Dr. Dang, a Registered Real Estate Negotiator under IX Realty Agency Sdn Bhd (Authorized Agency).
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Translation & Modal Logic -->
+    <script>
+        const translations = {
+            en: {
+                nav_profile: "Profile",
+                nav_properties: "Properties",
+                nav_contact: "Contact",
+                hero_subtitle: "Excellence in Healthcare & Real Estate",
+                hero_desc: "Registered Real Estate Negotiator (REN) providing strategic property advisory in the heart of Kuala Lumpur's Golden Triangle.",
+                btn_explore: "Explore Properties",
+                btn_talk: "Let's Talk",
+                about_title: "About Dr. Dang",
+                about_p1: "Dr. Dang Chee Chean is a highly respected healthcare professional with extensive experience in the pharmaceutical and oncology sector. Throughout his professional career, he has demonstrated a strong commitment to patient care, clinical excellence, and healthcare innovation, earning recognition as a leader within his field.",
+                about_p2: "Beyond his achievements in healthcare, Dr. Dang is also a registered Real Estate Negotiator (REN) who pursues his passion for real estate during his personal time. His interest in property investment, market trends, and helping clients make informed property decisions has enabled him to develop valuable expertise in the real estate industry.",
+                about_p3: "Combining the analytical mindset of a healthcare professional with the strategic thinking required in property advisory, Dr. Dang brings a unique perspective to the real estate market. He is known for his professionalism, integrity, attention to detail, and commitment to understanding the needs of his clients.",
+                about_p4: "Whether assisting property buyers, investors, or homeowners, Dr. Dang approaches every engagement with the same dedication and care that have defined his healthcare career. His ability to balance a demanding professional role while actively contributing to the real estate sector reflects his passion for continuous learning, entrepreneurship, and helping others achieve their goals.",
+                about_p5: "Today, Dr. Dang continues to inspire those around him through his dual commitment to healthcare excellence and real estate advisory.",
+                about_agency: "Dr. Dang Chee Chean is a Registered Real Estate Negotiator (REN) under IX Realty Agency Sdn Bhd.",
+                
+                // Why KLCC Section
+                why_klcc_subtitle: "The Undisputed Epicentre of Global Prestige",
+                why_klcc_title: "Why KLCC @ Kuala Lumpur ?",
+                why_klcc_intro: "Kuala Lumpur City Centre (KLCC) remains Malaysia’s most iconic and resilient real estate market. In 2026, it is not just a business district; it is a globally recognized symbol of luxury living, often compared to world-class destinations like Orchard Road in Singapore or Central Park in New York. For investors and homeowners alike, a KLCC address offers a unique combination of wealth preservation, unmatched connectivity, and a vibrant urban lifestyle.",
+                why_klcc_p1_title: "1. A Resilient \"Flight to Quality\" Asset",
+                why_klcc_p1_desc: "While the broader residential market faces challenges, the prime tier in KLCC has successfully decoupled from mass-market trends. In 2026, there is a clear \"flight to quality,\" where demand is concentrated in high-specification, low-density, and professionally managed luxury residences.",
+                why_klcc_p1_b1: "<strong>Wealth Preservation:</strong> KLCC is considered a secure zone for capital protection, offering steady and predictable annual capital appreciation of 3% to 5%.",
+                why_klcc_p1_b2: "<strong>High Rental Potential:</strong> Properties optimized for short-term rental platforms in the city center can see projected rental returns as high as 12% to 15%, while stable multi-year leases typically yield 3% to 5%.",
+                why_klcc_p2_title: "2. Multi-Layered Transit Connectivity",
+                why_klcc_p2_desc: "KLCC has \"leveled up\" its infrastructure, making it more accessible than ever before.",
+                why_klcc_p2_b1: "<strong>The Dual-Rail Advantage:</strong> The precinct is served by the established Kelana Jaya LRT line and the new MRT Putrajaya Line. The Persiaran KLCC MRT station acts as a central gateway, providing direct, driverless transit links to the administrative capital of Putrajaya and the Cyberjaya tech hub.",
+                why_klcc_p2_b2: "<strong>Strategic Road Links:</strong> The newly fully operational Setiawangsa–Pantai Expressway (SPE) serves as a central city bypass, reducing peak travel times by up to 30% and linking northern and southern hubs directly to the KLCC core.",
+                why_klcc_p3_title: "3. Urban Livability: The \"Green Core\"",
+                why_klcc_p3_desc: "At the heart of this high-density corporate environment is the 50-acre KLCC Park, a lush urban sanctuary designed by Roberto Burle Marx.",
+                why_klcc_p3_b1: "<strong>The City’s Lungs:</strong> Residents enjoy 1.3 kilometers of rubberized jogging tracks, over 1,900 indigenous trees, and the iconic Symphony Lake.",
+                why_klcc_p3_b2: "<strong>A Lifestyle Ecosystem:</strong> Living in KLCC means being steps away from Suria KLCC’s international flagship stores, world-class dining, and cultural landmarks like the ILHAM Gallery and the Petronas Philharmonic Hall.",
+                why_klcc_p4_title: "4. The Branded Residence Revolution",
+                why_klcc_p4_desc: "The current market trend heavily favors branded and ultra-prime residences. Today’s luxury buyers prioritize properties that offer hospitality-linked services, sustainability certifications, and superior building management. Projects that align with these standards, such as those in the Armani and Divine portfolios, fit perfectly into the 2026 preference for quality and lifestyle over speculative volume.",
+
+                // Benchmark Section
+                bench_subtitle: "Market Analysis",
+                bench_title: "Price Benchmark 2025-2026",
+                bench_intro: "Drawing on the provided sources, here is a summary of key residential and commercial properties in the Kuala Lumpur City Centre (KLCC) and Golden Triangle area, including their price benchmarks, rental ranges, and yields as of the 2025–2026 period.",
+                bench_res_title: "Existing Branded and Ultra-Prime Residences in KLCC",
+                bench_res_desc: "The luxury residential market in KLCC is characterized by \"trophy assets\" and branded residences that offer high-end hospitality services and superior management.",
+                bench_th_prop: "Property Name",
+                bench_th_price: "Property Price (Per Sq Ft)",
+                bench_th_yield: "Estimated Rental Yield",
+                bench_th_status: "Status",
+                bench_note: "Note: Properties optimized for short-term rental platforms in the city center have higher projected returns, reaching 12% to 15%, compared to stable multi-year leases that typically yield 3% to 5%.",
+                bench_com_title: "Commercial and Office Properties in KLCC & Golden Triangle",
+                bench_com_desc: "The office market is currently seeing a \"flight to quality,\" where Grade A and ESG-compliant buildings command higher rents and maintain lower vacancies.",
+                bench_th_type: "Property/Building Type",
+                bench_th_rent: "Rental Range (Per Sq Ft/Month)",
+                bench_th_trans: "Transaction Price (Per Sq Ft)",
+                bench_th_feat: "Key Features",
+                bench_ind_title: "Investment Indicators for KLCC (2026 Outlook)",
+                bench_ind_1: "<strong>Rental Yields:</strong> Steady yields for prime KLCC assets range between 3% and 5%.",
+                bench_ind_2: "<strong>Capital Appreciation:</strong> The district maintains a steady and predictable annual capital appreciation of 3% to 5%.",
+                bench_ind_3: "<strong>Market Resilience:</strong> While the broader market faces a supply overhang, the prime tier in KLCC has decoupled from these challenges, remaining a secure zone for wealth preservation and capital protection.",
+                bench_ind_4: "<strong>Transit Advantage:</strong> Properties within walking distance of the KLCC LRT station or the Persiaran KLCC MRT station (Putrajaya Line) command higher occupancy and rental resilience.",
+                
+                // Table variables
+                status_completed: "Completed",
+                status_completed_24: "Completed 2024",
+                status_uc: "Under construction (2025)",
+                status_existing: "Existing",
+                status_varies: "Price varies by unit",
+                val_na: "N/A",
+                feat_mod: "Modern, ESG-certified",
+                feat_high: "High-spec, transit-linked",
+                feat_maj: "Major transaction",
+                feat_prime: "Existing Prime Stock",
+                val_market: "(Market)",
+                val_est: "(Est)",
+                val_oct: "(Oct 2023)",
+                val_apr: "(Apr 2024)",
+                val_aug: "(Aug 2023)",
+                val_steady: "(Steady)",
+
+                prop_subtitle: "Exclusive Portfolio",
+                prop_title: "Featured Developments",
+                badge_kl: "Kuala Lumpur",
+                badge_award: "Award Winning",
+                badge_new: "New Launch",
+                badge_auth: "Authorized Agency for project sales by",
+                loc_prestige: "Jalan Mayang, KL Golden Triangle",
+                loc_hallson: "Jalan Ampang, KLCC",
+                loc_divine: "Developer: Chin Hin Group",
+                btn_req_info: "Request Info via WhatsApp",
+                cta_title: "Ready to make an informed property decision?",
+                cta_desc: "Connect with Dr. Dang for strategic advisory tailored to your investment goals or homeownership dreams.",
+                cta_wa_btn: "Chat on WhatsApp",
+                footer_l1: "Registered Real Estate Negotiator (REN)",
+                footer_l2: "Premium Property Advisory in Kuala Lumpur",
+                footer_copy: "&copy; 2026 Dr. Dang Chee Chean. All rights reserved. Information based on respective property developers' materials.",
+                mod_h_intro: "Introduction",
+                mod_h_why: "Why Buy This Property?",
+                mod_h_layout: "Layout & Configuration",
+                mod_h_location: "Location & Connectivity",
+                mod_btn_floor: "Request Floor Plans & Pricing",
+                disclaimer: "By clicking, you agree to our privacy policy. Services provided by Dr. Dang, a Registered Real Estate Negotiator under IX Realty Agency Sdn Bhd (Authorized Agency).",
+                wa_general: "Hi Dr. Dang, I would like more information about your properties.",
+                wa_hero: "Hi Dr. Dang, I am interested in your property portfolio.",
+                wa_cta: "Hi Dr. Dang, I am interested in learning more about your property listings.",
+            },
+            zh: {
+                nav_profile: "个人简介",
+                nav_properties: "房地产项目",
+                nav_contact: "联系我们",
+                hero_subtitle: "医疗保健与房地产的卓越表现",
+                hero_desc: "注册房地产谈判代表 (REN)，在吉隆坡金三角地带提供战略性的房地产咨询服务。",
+                btn_explore: "探索项目",
+                btn_talk: "与我联系",
+                about_title: "关于邓医生",
+                about_p1: "邓志建医生是一位备受尊敬的医疗保健专业人员，在制药和肿瘤学领域拥有丰富的经验。在整个职业生涯中，他表现出对患者护理、临床卓越和医疗保健创新的坚定承诺，并赢得了该领域的领导者认可。",
+                about_p2: "除了在医疗保健方面的成就外，邓医生也是一名注册房地产谈判代表 (REN)，在个人时间追求他对房地产的热情。他对房地产投资、市场趋势以及帮助客户做出明智决策的兴趣，使他在该行业积累了宝贵的专业知识。",
+                about_p3: "结合医疗专业人员的分析思维与房地产咨询所需的战略思考，邓医生为房地产市场带来了独特的视角。他以专业精神、诚信、注重细节以及致力于理解客户需求而闻名。",
+                about_p4: "无论是协助购房者、投资者还是房主，邓医生都以定义其医疗生涯的同样奉献精神和关怀来对待每一次合作。他在平衡苛刻的专业角色的同时，积极为房地产行业做出贡献，这反映了他对持续学习、企业家精神和帮助他人实现目标的激情。",
+                about_p5: "今天，邓医生通过他对医疗保健卓越和房地产咨询的双重承诺，继续激励着周围的人。",
+                about_agency: "邓志建医生是 IX Realty Agency Sdn Bhd 旗下的注册房地产谈判代表 (REN)。",
+
+                // Why KLCC Section
+                why_klcc_subtitle: "全球尊贵地位的无可争议的中心",
+                why_klcc_title: "为什么选择吉隆坡城中城 (KLCC)？",
+                why_klcc_intro: "吉隆坡城中城 (KLCC) 仍然是马来西亚最具标志性和弹性的房地产市场。在 2026 年，它不仅是一个商业区；它还是全球公认的奢华生活象征，经常被拿来与新加坡的乌节路或纽约的中央公园等世界级目的地相提并论。对于投资者和房主而言，KLCC 的地址提供了财富保值、无与伦比的连通性和充满活力的城市生活的独特组合。",
+                why_klcc_p1_title: "1. 具有弹性的“飞向质量”资产",
+                why_klcc_p1_desc: "虽然更广泛的住宅市场面临挑战，但 KLCC 的顶级市场已成功脱离大众市场趋势。2026 年出现了明显的“飞向质量”趋势，需求集中在高规格、低密度和专业管理的豪华住宅上。",
+                why_klcc_p1_b1: "<strong>财富保值：</strong> KLCC 被认为是资本保护的安全区，提供 3% 至 5% 稳定且可预测的年资本增值。",
+                why_klcc_p1_b2: "<strong>高租金潜力：</strong> 针对市中心短期租赁平台进行优化的房产预计租金回报率高达 12% 至 15%，而稳定的多年租约通常收益率为 3% 至 5%。",
+                why_klcc_p2_title: "2. 多层次交通连通性",
+                why_klcc_p2_desc: "KLCC 升级了其基础设施，使其比以往任何时候都更加便利。",
+                why_klcc_p2_b1: "<strong>双轨优势：</strong> 该区域由成熟的 Kelana Jaya 轻快铁线和新建的 MRT 布城线提供服务。Persiaran KLCC 捷运站作为中央门户，提供直达行政首都布城和赛城科技中心的无人物理中转连接。",
+                why_klcc_p2_b2: "<strong>战略道路连接：</strong> 全面投入运营的斯迪亚旺沙-班台大道 (SPE) 作为市中心绕道，将高峰出行时间缩短多达 30%，并将北部和南部枢纽直接连接到 KLCC 核心。",
+                why_klcc_p3_title: "3. 城市宜居性：“绿色核心”",
+                why_klcc_p3_desc: "在这个高密度企业环境的中心是占地 50 英亩的 KLCC 公园，这是由罗伯托·布雷·马克思设计的郁郁葱葱的城市避难所。",
+                why_klcc_p3_b1: "<strong>城市之肺：</strong> 居民可以享受 1.3 公里长的橡胶慢跑道、1,900 多棵本土树木以及标志性的交响乐湖。",
+                why_klcc_p3_b2: "<strong>生活方式生态系统：</strong> 住在 KLCC 意味着距离 Suria KLCC 的国际旗舰店、世界级餐饮以及 ILHAM 画廊和国油爱乐音乐厅等文化地标仅几步之遥。",
+                why_klcc_p4_title: "4. 品牌住宅革命",
+                why_klcc_p4_desc: "目前的市场趋势严重偏向于品牌和超高端住宅。如今的豪宅买家优先考虑提供酒店相关服务、可持续性认证和卓越建筑管理的房产。符合这些标准的项目（如 Armani 和 Divine 投资组合中的项目）完美契合了 2026 年对质量和生活方式而非投机数量的偏好。",
+
+                // Benchmark Section
+                bench_subtitle: "市场分析",
+                bench_title: "2025-2026 价格基准",
+                bench_intro: "根据提供的来源，以下是吉隆坡城中城 (KLCC) 和金三角地区主要住宅和商业房地产的摘要，包括截至 2025-2026 年期间的价格基准、租金范围和收益率。",
+                bench_res_title: "KLCC 现有的品牌和超高端住宅",
+                bench_res_desc: "KLCC 豪华住宅市场的特点是“战利品资产”和品牌住宅，这些住宅提供高端的酒店服务和卓越的管理。",
+                bench_th_prop: "房产名称",
+                bench_th_price: "房产价格 (每平方英尺)",
+                bench_th_yield: "预计租金收益率",
+                bench_th_status: "状态",
+                bench_note: "注意：在市中心针对短期租赁平台进行优化的房产，其预计回报率较高，可达 12% 至 15%，而稳定的多年期租赁收益率通常为 3% 至 5%。",
+                bench_com_title: "KLCC 和金三角地区的商业和办公房地产",
+                bench_com_desc: "办公楼市场目前正经历“飞向质量”的趋势，A 级和符合 ESG 标准的建筑租金更高，空置率更低。",
+                bench_th_type: "房产/建筑类型",
+                bench_th_rent: "租金范围 (每平方英尺/月)",
+                bench_th_trans: "交易价格 (每平方英尺)",
+                bench_th_feat: "主要特点",
+                bench_ind_title: "KLCC 投资指标 (2026 展望)",
+                bench_ind_1: "<strong>租金收益率：</strong> KLCC 优质资产的稳定收益率在 3% 至 5% 之间。",
+                bench_ind_2: "<strong>资本增值：</strong> 该地区保持稳定且可预测的 3% 至 5% 的年资本增值。",
+                bench_ind_3: "<strong>市场弹性：</strong> 尽管更广泛的市场面临供应过剩，但 KLCC 的优质阶层已从这些挑战中脱钩，仍然是财富保值和资本保护的安全区。",
+                bench_ind_4: "<strong>交通优势：</strong> 步行即可到达 KLCC 轻轨站或 Persiaran KLCC 捷运站（布城线）的房产具有更高的入住率和租金弹性。",
+                
+                // Table variables
+                status_completed: "已竣工",
+                status_completed_24: "2024年竣工",
+                status_uc: "建设中 (2025)",
+                status_existing: "现有",
+                status_varies: "价格因单位而异",
+                val_na: "不适用",
+                feat_mod: "现代，符合ESG标准",
+                feat_high: "高规格，交通便利",
+                feat_maj: "主要交易",
+                feat_prime: "现有优质存量",
+                val_market: "(市场价)",
+                val_est: "(估计)",
+                val_oct: "(2023年10月)",
+                val_apr: "(2024年4月)",
+                val_aug: "(2023年8月)",
+                val_steady: "(稳定)",
+
+                prop_subtitle: "独家投资组合",
+                prop_title: "精选开发项目",
+                badge_kl: "吉隆坡",
+                badge_award: "屡获殊荣",
+                badge_new: "全新发布",
+                badge_auth: "授权项目销售代理：",
+                loc_prestige: "Jalan Mayang, 吉隆坡金三角",
+                loc_hallson: "Jalan Ampang, 吉隆坡城中城",
+                loc_divine: "开发商: 振兴集团 (Chin Hin Group)",
+                btn_req_info: "通过 WhatsApp 获取信息",
+                cta_title: "准备好做出明智的房产决策了吗？",
+                cta_desc: "联系邓医生，为您量身定制符合投资目标或置业梦想的战略咨询。",
+                cta_wa_btn: "在 WhatsApp 上聊天",
+                footer_l1: "注册房地产谈判代表 (REN)",
+                footer_l2: "吉隆坡高级房地产咨询",
+                footer_copy: "&copy; 2026 邓志建医生. 保留所有权利。信息基于各房地产开发商的材料。",
+                mod_h_intro: "简介",
+                mod_h_why: "为什么购买此房产？",
+                mod_h_layout: "布局与配置",
+                mod_h_location: "位置与交通",
+                mod_btn_floor: "索取楼层平面图和价格",
+                disclaimer: "点击即表示您同意我们的隐私政策。服务由 IX Realty Agency Sdn Bhd (授权代理) 旗下的注册房地产谈判代表邓医生提供。",
+                wa_general: "邓医生您好，我想了解更多关于您的房产信息。",
+                wa_hero: "邓医生您好，我对您的房产投资组合很感兴趣。",
+                wa_cta: "邓医生您好，我想了解更多关于您的房产列表信息。",
+            },
+            ja: {
+                nav_profile: "プロフィール",
+                nav_properties: "物件紹介",
+                nav_contact: "お問い合わせ",
+                hero_subtitle: "医療と不動産の卓越性",
+                hero_desc: "クアラルンプールのゴールデントライアングルで戦略的な不動産アドバイザリーを提供する登録不動産交渉人 (REN)。",
+                btn_explore: "物件を見る",
+                btn_talk: "お問い合わせ",
+                about_title: "ダン博士について",
+                about_p1: "ダン・チー・チェン博士は、製薬および腫瘍学の分野で豊富な経験を持つ、高く評価されている医療専門家です。そのキャリアを通じて、患者ケア、臨床の卓越性、医療イノベーションへの強いコミットメントを示し、業界のリーダーとして認められています。",
+                about_p2: "医療分野での功績にとどまらず、ダン博士は登録不動産交渉人（REN）でもあり、個人的な時間に不動産への情熱を追求しています。不動産投資、市場動向、および顧客が情報に基づいた決定を下すのを支援することへの関心により、不動産業界で貴重な専門知識を培ってきました。",
+                about_p3: "医療専門家の分析的思考と、不動産アドバイザリーに必要な戦略的思考を組み合わせることで、ダン博士は不動産市場に独自の視点をもたらします。彼のプロフェッショナリズム、誠実さ、細部への気配り、そして顧客のニーズを理解することへのコミットメントは広く知られています。",
+                about_p4: "物件の購入者、投資家、住宅所有者のいずれを支援する場合でも、ダン博士は医療キャリアを定義づけたのと同じ献身とケアをもってすべての業務に取り組みます。厳しい専門的役割のバランスを取りながら、不動産分野に積極的に貢献する彼の能力は、継続的な学習、起業家精神、そして他者の目標達成を支援する情熱を反映しています。",
+                about_p5: "今日、ダン博士は医療の卓越性と不動産アドバイザリーへの二重のコミットメントを通じて、周囲の人々にインスピレーションを与え続けています。",
+                about_agency: "ダン博士は、IX Realty Agency Sdn Bhd に所属する登録不動産交渉人（REN）です。",
+
+                // Why KLCC Section
+                why_klcc_subtitle: "世界的なプレステージの揺るぎない中心地",
+                why_klcc_title: "なぜクアラルンプールのKLCCなのか？",
+                why_klcc_intro: "クアラルンプール・シティ・センター (KLCC) は、マレーシアで最も象徴的で回復力のある不動産市場であり続けています。2026年において、それは単なるビジネス街ではありません。シンガポールのオーチャードロードやニューヨークのセントラルパークなどの世界的な目的地としばしば比較される、世界的に認められた贅沢な生活の象徴です。投資家にとっても住宅所有者にとっても、KLCCの住所は、資産保全、比類のないアクセス、活気に満ちた都市生活のユニークな組み合わせを提供します。",
+                why_klcc_p1_title: "1. 回復力のある「質への逃避」資産",
+                why_klcc_p1_desc: "より広い住宅市場が課題に直面している一方で、KLCCのプライム層はマスマーケットの傾向から見事に切り離されています。2026年には明らかな「質への逃避」が見られ、需要は高仕様、低密度、専門的に管理された高級住宅に集中しています。",
+                why_klcc_p1_b1: "<strong>資産保全：</strong> KLCCは資本保護のための安全なゾーンと見なされており、年間3％から5％の安定した予測可能な資本増価を提供します。",
+                why_klcc_p1_b2: "<strong>高い賃貸ポテンシャル：</strong> 市中心部で短期賃貸プラットフォーム向けに最適化された物件は、12％から15％もの高い予測賃貸利回りを見込むことができますが、安定した複数年契約では通常3％から5％の利回りが得られます。",
+                why_klcc_p2_title: "2. 多層的な交通アクセス",
+                why_klcc_p2_desc: "KLCCはそのインフラを「レベルアップ」させ、これまで以上にアクセスしやすくなりました。",
+                why_klcc_p2_b1: "<strong>デュアルレールの利点：</strong> この地域は、確立されたクラナジャヤLRT線と新しいMRTプトラジャヤ線によってサービスが提供されています。ペルシランKLCC MRT駅は中央の玄関口として機能し、行政首都のプトラジャヤやサイバージャヤのテクノロジーハブへ直通の無人トランジットリンクを提供します。",
+                why_klcc_p2_b2: "<strong>戦略的な道路リンク：</strong> 新しく全面稼働したセティアワンサ・パンタイ高速道路 (SPE) は、市中心部のバイパスとして機能し、ピーク時の移動時間を最大30％短縮し、北部と南部のハブをKLCCコアに直接接続します。",
+                why_klcc_p3_title: "3. 都市の住みやすさ：「グリーンコア」",
+                why_klcc_p3_desc: "この高密度の企業環境の中心には、ロベルト・ブーレ・マルクスによって設計された緑豊かな都市の聖域である50エーカーのKLCCパークがあります。",
+                why_klcc_p3_b1: "<strong>都市の肺：</strong> 住民は、1.3 kmのゴム引きジョギングコース、1,900本以上の自生樹木、象徴的なシンフォニーレイクを楽しむことができます。",
+                why_klcc_p3_b2: "<strong>ライフスタイルエコシステム：</strong> KLCCに住むということは、スリアKLCCの国際的な旗艦店、世界クラスのダイニング、ILHAMギャラリーやペトロナス・フィルハーモニック・ホールなどの文化的ランドマークからわずか数歩の距離にいることを意味します。",
+                why_klcc_p4_title: "4. ブランドレジデンス革命",
+                why_klcc_p4_desc: "現在の市場トレンドは、ブランドレジデンスや超高級レジデンスを強く支持しています。今日の高級物件の購入者は、ホスピタリティ関連のサービス、持続可能性の認証、優れた建物管理を提供する物件を優先します。アルマーニやディバインのポートフォリオにあるような、これらの基準に沿ったプロジェクトは、投機的なボリュームよりも品質とライフスタイルを重視する2026年の好みに完全に適合しています。",
+
+                // Benchmark Section
+                bench_subtitle: "市場分析",
+                bench_title: "価格ベンチマーク 2025-2026",
+                bench_intro: "提供されたソースに基づき、2025〜2026年の期間におけるクアラルンプールシティセンター（KLCC）およびゴールデントライアングル地域の主要な住宅および商業物件の概要（価格ベンチマーク、賃貸範囲、利回りなど）を以下に示します。",
+                bench_res_title: "KLCCの既存のブランドレジデンスおよび超高級レジデンス",
+                bench_res_desc: "KLCCの高級住宅市場は、「トロフィー資産」と、ハイエンドのホスピタリティサービスと優れた管理を提供するブランドレジデンスによって特徴付けられます。",
+                bench_th_prop: "物件名",
+                bench_th_price: "物件価格（1平方フィートあたり）",
+                bench_th_yield: "推定賃貸利回り",
+                bench_th_status: "ステータス",
+                bench_note: "注：市中心部で短期賃貸プラットフォーム向けに最適化された物件は、通常3％から5％の利回りが得られる安定した複数年契約と比較して、12％から15％に達する高い予測リターンがあります。",
+                bench_com_title: "KLCCおよびゴールデントライアングルの商業およびオフィス物件",
+                bench_com_desc: "オフィス市場では現在「質への逃避」が見られ、グレードAおよびESG準拠の建物がより高い賃料を課し、空室率を低く維持しています。",
+                bench_th_type: "物件/建物の種類",
+                bench_th_rent: "賃料範囲（1平方フィート/月あたり）",
+                bench_th_trans: "取引価格（1平方フィートあたり）",
+                bench_th_feat: "主な特徴",
+                bench_ind_title: "KLCCの投資指標（2026年の見通し）",
+                bench_ind_1: "<strong>賃貸利回り：</strong> プライムKLCC資産の安定した利回りは3％から5％の範囲です。",
+                bench_ind_2: "<strong>資本増価：</strong> この地区は、年間3％から5％の安定した予測可能な資本増価を維持しています。",
+                bench_ind_3: "<strong>市場の回復力：</strong> より広い市場が供給過剰に直面している一方で、KLCCのプライム層はこれらの課題から切り離されており、富の保全と資本保護のための安全なゾーンであり続けています。",
+                bench_ind_4: "<strong>交通の利点：</strong> KLCC LRT駅またはPersiaran KLCC MRT駅（プトラジャヤ線）から徒歩圏内にある物件は、より高い稼働率と賃貸の回復力を誇っています。",
+
+                // Table variables
+                status_completed: "完成済み",
+                status_completed_24: "2024年完成",
+                status_uc: "建設中（2025年）",
+                status_existing: "既存",
+                status_varies: "価格はユニットにより異なります",
+                val_na: "N/A",
+                feat_mod: "モダン、ESG認証済み",
+                feat_high: "高仕様、交通機関直結",
+                feat_maj: "主要な取引",
+                feat_prime: "既存の優良ストック",
+                val_market: "(市場)",
+                val_est: "(推定)",
+                val_oct: "(2023年10月)",
+                val_apr: "(2024年4月)",
+                val_aug: "(2023年8月)",
+                val_steady: "(安定)",
+
+                prop_subtitle: "限定ポートフォリオ",
+                prop_title: "注目のプロジェクト",
+                badge_kl: "クアラルンプール",
+                badge_award: "受賞歴",
+                badge_new: "新規販売",
+                badge_auth: "プロジェクト販売正規代理店：",
+                loc_prestige: "Jalan Mayang, KL ゴールデントライアングル",
+                loc_hallson: "Jalan Ampang, KLCC",
+                loc_divine: "開発者: Chin Hin Group",
+                btn_req_info: "WhatsAppで詳細をリクエスト",
+                cta_title: "不動産に関する賢明な決定を下す準備はできていますか？",
+                cta_desc: "あなたの投資目標やマイホームの夢に合わせた戦略的なアドバイスについては、ダン博士にご相談ください。",
+                cta_wa_btn: "WhatsAppでチャット",
+                footer_l1: "登録不動産交渉人 (REN)",
+                footer_l2: "クアラルンプールのプレミアム不動産アドバイザリー",
+                footer_copy: "&copy; 2026 ダン・チー・チェン博士 無断複写・転載を禁じます。各不動産開発業者の資料に基づく情報です。",
+                mod_h_intro: "紹介",
+                mod_h_why: "この物件を購入する理由",
+                mod_h_layout: "レイアウトと構成",
+                mod_h_location: "場所とアクセス",
+                mod_btn_floor: "間取り図と価格をリクエストする",
+                disclaimer: "クリックすることで、プライバシーポリシーに同意したことになります。サービスは、IX Realty Agency Sdn Bhd（正規代理店）に所属する登録不動産交渉人であるダン博士によって提供されます。",
+                wa_general: "ダン博士、あなたの物件についてもっと情報が欲しいです。",
+                wa_hero: "ダン博士、あなたの物件ポートフォリオに興味があります。",
+                wa_cta: "ダン博士、あなたの物件リストについてもっと知りたいです。",
+            },
+            ms: {
+                nav_profile: "Profil",
+                nav_properties: "Hartanah",
+                nav_contact: "Hubungi",
+                hero_subtitle: "Kecemerlangan dalam Penjagaan Kesihatan & Hartanah",
+                hero_desc: "Perunding Hartanah Berdaftar (REN) yang menyediakan khidmat nasihat hartanah strategik di tengah-tengah Segitiga Emas Kuala Lumpur.",
+                btn_explore: "Teroka Hartanah",
+                btn_talk: "Jom Bincang",
+                about_title: "Mengenai Dr. Dang",
+                about_p1: "Dr. Dang Chee Chean ialah seorang profesional penjagaan kesihatan yang amat dihormati dengan pengalaman luas dalam sektor farmaseutikal dan onkologi. Sepanjang kerjaya profesionalnya, beliau telah menunjukkan komitmen yang kuat terhadap penjagaan pesakit, kecemerlangan klinikal, dan inovasi penjagaan kesihatan, sekaligus diiktiraf sebagai pemimpin dalam bidangnya.",
+                about_p2: "Di samping pencapaian beliau dalam penjagaan kesihatan, Dr. Dang juga merupakan Perunding Hartanah Berdaftar (REN) yang meneruskan minatnya dalam hartanah pada masa peribadinya. Minat beliau terhadap pelaburan hartanah, trend pasaran, dan membantu pelanggan membuat keputusan yang tepat telah membolehkan beliau mengembangkan kepakaran yang bernilai dalam industri hartanah.",
+                about_p3: "Dengan menggabungkan pemikiran analitikal seorang profesional penjagaan kesihatan dengan pemikiran strategik yang diperlukan dalam penasihatan hartanah, Dr. Dang membawa perspektif unik kepada pasaran hartanah. Beliau dikenali dengan profesionalisme, integriti, ketelitian, dan komitmen untuk memahami keperluan pelanggannya.",
+                about_p4: "Sama ada membantu pembeli rumah, pelabur, atau pemilik rumah, Dr. Dang mendekati setiap tugasan dengan dedikasi dan keprihatinan yang sama seperti kerjaya kesihatannya. Keupayaannya untuk menyeimbangkan peranan profesional yang mencabar sambil aktif menyumbang kepada sektor hartanah mencerminkan semangat beliau untuk pembelajaran berterusan, keusahawanan, dan membantu orang lain mencapai matlamat mereka.",
+                about_p5: "Hari ini, Dr. Dang terus memberi inspirasi kepada mereka di sekelilingnya melalui komitmen dwinya terhadap kecemerlangan penjagaan kesihatan dan penasihatan hartanah.",
+                about_agency: "Dr. Dang Chee Chean ialah Perunding Hartanah Berdaftar (REN) di bawah IX Realty Agency Sdn Bhd.",
+
+                // Why KLCC Section
+                why_klcc_subtitle: "Pusat Epikentral Prestij Global Yang Tidak Dipertikaikan",
+                why_klcc_title: "Mengapa KLCC @ Kuala Lumpur ?",
+                why_klcc_intro: "Pusat Bandar Raya Kuala Lumpur (KLCC) kekal sebagai pasaran hartanah paling ikonik dan berdaya tahan di Malaysia. Pada tahun 2026, ia bukan sekadar daerah perniagaan; ia adalah simbol kehidupan mewah yang diiktiraf di peringkat global, sering dibandingkan dengan destinasi bertaraf dunia seperti Orchard Road di Singapura atau Central Park di New York. Bagi pelabur dan pemilik rumah, alamat KLCC menawarkan gabungan unik pemeliharaan kekayaan, ketersambungan yang tiada tandingan, dan gaya hidup bandar yang bertenaga.",
+                why_klcc_p1_title: "1. Aset \"Beralih ke Kualiti\" yang Berdaya Tahan",
+                why_klcc_p1_desc: "Walaupun pasaran kediaman yang lebih luas menghadapi cabaran, peringkat premium di KLCC telah berjaya memisahkan diri daripada trend pasaran besar-besaran. Pada tahun 2026, terdapat \"peralihan ke kualiti\" yang jelas, di mana permintaan tertumpu pada kediaman mewah berspesifikasi tinggi, berketumpatan rendah, dan diuruskan secara profesional.",
+                why_klcc_p1_b1: "<strong>Pemeliharaan Kekayaan:</strong> KLCC dianggap sebagai zon selamat untuk perlindungan modal, menawarkan peningkatan modal tahunan yang stabil dan boleh diramal antara 3% hingga 5%.",
+                why_klcc_p1_b2: "<strong>Potensi Sewa yang Tinggi:</strong> Hartanah yang dioptimumkan untuk platform sewaan jangka pendek di pusat bandar boleh melihat unjuran pulangan sewa setinggi 12% hingga 15%, manakala pajakan pelbagai tahun yang stabil biasanya menghasilkan 3% hingga 5%.",
+                why_klcc_p2_title: "2. Ketersambungan Transit Berbilang Lapisan",
+                why_klcc_p2_desc: "KLCC telah \"meningkatkan\" infrastrukturnya, menjadikannya lebih mudah diakses berbanding sebelum ini.",
+                why_klcc_p2_b1: "<strong>Kelebihan Dwi-Rel:</strong> Presint ini diservis oleh laluan LRT Kelana Jaya yang sedia ada dan Laluan MRT Putrajaya yang baharu. Stesen MRT Persiaran KLCC bertindak sebagai pintu masuk pusat, menyediakan laluan transit terus tanpa pemandu ke ibu kota pentadbiran Putrajaya dan hab teknologi Cyberjaya.",
+                why_klcc_p2_b2: "<strong>Pautan Jalan Strategik:</strong> Lebuhraya Setiawangsa-Pantai (SPE) yang baru beroperasi sepenuhnya berfungsi sebagai jalan pintas pusat bandar, mengurangkan masa perjalanan puncak sehingga 30% dan menghubungkan hab utara dan selatan terus ke teras KLCC.",
+                why_klcc_p3_title: "3. Kebolehdiaman Bandar: \"Teras Hijau\"",
+                why_klcc_p3_desc: "Di tengah-tengah persekitaran korporat berketumpatan tinggi ini ialah Taman KLCC seluas 50 ekar, sebuah tempat perlindungan bandar yang rimbun yang direka oleh Roberto Burle Marx.",
+                why_klcc_p3_b1: "<strong>Paru-paru Bandar:</strong> Penduduk menikmati 1.3 kilometer trek joging bergetah, lebih 1,900 pokok asli, dan Tasik Simfoni yang ikonik.",
+                why_klcc_p3_b2: "<strong>Ekosistem Gaya Hidup:</strong> Tinggal di KLCC bermakna hanya beberapa langkah dari kedai utama antarabangsa Suria KLCC, tempat makan bertaraf dunia, dan mercu tanda budaya seperti Galeri ILHAM dan Dewan Filharmonik Petronas.",
+                why_klcc_p4_title: "4. Revolusi Kediaman Berjenama",
+                why_klcc_p4_desc: "Trend pasaran semasa sangat memihak kepada kediaman berjenama dan ultra-premium. Pembeli mewah hari ini mengutamakan hartanah yang menawarkan perkhidmatan berkaitan hospitaliti, pensijilan kelestarian, dan pengurusan bangunan yang unggul. Projek yang sejajar dengan piawaian ini, seperti dalam portfolio Armani dan Divine, sangat sesuai dengan keutamaan 2026 untuk kualiti dan gaya hidup berbanding volum spekulatif.",
+
+                // Benchmark Section
+                bench_subtitle: "Analisis Pasaran",
+                bench_title: "Penanda Aras Harga 2025-2026",
+                bench_intro: "Berdasarkan sumber yang diberikan, berikut adalah ringkasan hartanah kediaman dan komersial utama di Pusat Bandar Raya Kuala Lumpur (KLCC) dan kawasan Segitiga Emas, termasuk penanda aras harga, julat sewa, dan hasil mereka setakat tempoh 2025–2026.",
+                bench_res_title: "Kediaman Berjenama dan Ultra-Premium Sedia Ada di KLCC",
+                bench_res_desc: "Pasaran kediaman mewah di KLCC dicirikan oleh \"aset trofi\" dan kediaman berjenama yang menawarkan perkhidmatan hospitaliti mewah dan pengurusan yang unggul.",
+                bench_th_prop: "Nama Hartanah",
+                bench_th_price: "Harga Hartanah (Setiap Kaki Persegi)",
+                bench_th_yield: "Anggaran Hasil Sewa",
+                bench_th_status: "Status",
+                bench_note: "Nota: Hartanah yang dioptimumkan untuk platform sewaan jangka pendek di pusat bandar mempunyai unjuran pulangan yang lebih tinggi, mencecah 12% hingga 15%, berbanding dengan pajakan pelbagai tahun yang stabil yang biasanya menghasilkan 3% hingga 5%.",
+                bench_com_title: "Hartanah Komersial dan Pejabat di KLCC & Segitiga Emas",
+                bench_com_desc: "Pasaran pejabat pada masa ini melihat \"peralihan ke kualiti,\" di mana bangunan Gred A dan yang mematuhi ESG mengenakan sewa yang lebih tinggi dan mengekalkan kekosongan yang lebih rendah.",
+                bench_th_type: "Jenis Hartanah/Bangunan",
+                bench_th_rent: "Julat Sewa (Setiap Kaki Persegi/Bulan)",
+                bench_th_trans: "Harga Transaksi (Setiap Kaki Persegi)",
+                bench_th_feat: "Ciri-ciri Utama",
+                bench_ind_title: "Petunjuk Pelaburan untuk KLCC (Tinjauan 2026)",
+                bench_ind_1: "<strong>Hasil Sewa:</strong> Hasil yang stabil untuk aset utama KLCC berkisar antara 3% hingga 5%.",
+                bench_ind_2: "<strong>Peningkatan Modal:</strong> Daerah ini mengekalkan peningkatan modal tahunan yang stabil dan boleh diramal sebanyak 3% hingga 5%.",
+                bench_ind_3: "<strong>Daya Tahan Pasaran:</strong> Walaupun pasaran yang lebih luas menghadapi lebihan bekalan, peringkat premium di KLCC telah memisahkan diri daripada cabaran ini, kekal sebagai zon selamat untuk pemeliharaan kekayaan dan perlindungan modal.",
+                bench_ind_4: "<strong>Kelebihan Transit:</strong> Hartanah dalam jarak berjalan kaki dari stesen LRT KLCC atau stesen MRT Persiaran KLCC (Laluan Putrajaya) mempunyai penghunian dan daya tahan sewa yang lebih tinggi.",
+
+                // Table variables
+                status_completed: "Telah Siap",
+                status_completed_24: "Siap 2024",
+                status_uc: "Sedang dibina (2025)",
+                status_existing: "Sedia Ada",
+                status_varies: "Harga berbeza mengikut unit",
+                val_na: "T/B",
+                feat_mod: "Moden, diperakui ESG",
+                feat_high: "Spesifikasi tinggi, berhubung transit",
+                feat_maj: "Transaksi utama",
+                feat_prime: "Stok Utama Sedia Ada",
+                val_market: "(Pasaran)",
+                val_est: "(Anggaran)",
+                val_oct: "(Okt 2023)",
+                val_apr: "(Apr 2024)",
+                val_aug: "(Ogo 2023)",
+                val_steady: "(Stabil)",
+
+                prop_subtitle: "Portfolio Eksklusif",
+                prop_title: "Pembangunan Pilihan",
+                badge_kl: "Kuala Lumpur",
+                badge_award: "Pemenang Anugerah",
+                badge_new: "Pelancaran Baru",
+                badge_auth: "Agensi Sah untuk jualan projek oleh",
+                loc_prestige: "Jalan Mayang, Segitiga Emas KL",
+                loc_hallson: "Jalan Ampang, KLCC",
+                loc_divine: "Pemaju: Chin Hin Group",
+                btn_req_info: "Minta Maklumat via WhatsApp",
+                cta_title: "Bersedia untuk membuat keputusan hartanah yang tepat?",
+                cta_desc: "Berhubung dengan Dr. Dang untuk khidmat nasihat strategik yang disesuaikan dengan matlamat pelaburan atau impian pemilikan rumah anda.",
+                cta_wa_btn: "Sembang di WhatsApp",
+                footer_l1: "Perunding Hartanah Berdaftar (REN)",
+                footer_l2: "Penasihat Hartanah Premium di Kuala Lumpur",
+                footer_copy: "&copy; 2026 Dr. Dang Chee Chean. Hak cipta terpelihara. Maklumat berdasarkan bahan pemaju hartanah masing-masing.",
+                mod_h_intro: "Pengenalan",
+                mod_h_why: "Mengapa Beli Hartanah Ini?",
+                mod_h_layout: "Susun Atur & Konfigurasi",
+                mod_h_location: "Lokasi & Ketersambungan",
+                mod_btn_floor: "Minta Pelan Lantai & Harga",
+                disclaimer: "Dengan mengklik, anda bersetuju dengan dasar privasi kami. Perkhidmatan disediakan oleh Dr. Dang, Perunding Hartanah Berdaftar di bawah IX Realty Agency Sdn Bhd (Agensi Sah).",
+                wa_general: "Hai Dr. Dang, saya ingin maklumat lanjut mengenai hartanah anda.",
+                wa_hero: "Hai Dr. Dang, saya berminat dengan portfolio hartanah anda.",
+                wa_cta: "Hai Dr. Dang, saya berminat untuk mengetahui lebih lanjut tentang senarai hartanah anda.",
+            }
+        };
+
+        const propertyData = {
+            'armani-prestige': {
+                image: 'img/armani-prestige.jpg',
+                en: {
+                    title: 'Armani Prestige',
+                    cardDesc: 'An exceptional 59-storey freehold luxury tower situated steps away from the iconic Petronas Twin Towers, Avenue-K, and Suria KLCC Mall.',
+                    intro: 'An exceptional 59-storey freehold luxury tower situated steps away from the iconic Petronas Twin Towers, Avenue-K, and Suria KLCC Mall. Experience the pulse of city life from the heart of luxury.',
+                    whyBuy: '<ul class="list-disc pl-5 space-y-2"><li>Prime KL Golden Triangle Address with unmatched capital appreciation potential.</li><li>Walking distance to Suria KLCC & Avenue K shopping destinations.</li><li>Unobstructed city skyline views featuring the Petronas Twin Towers.</li><li>Exclusive 5-star lifestyle facilities and top-tier security.</li></ul>',
+                    layout: 'Premium Office & Residential mixes. Types A & B starting from 273 sq.ft to 330 sq.ft., perfect for high-yield urban investments or exclusive SOHO suites.',
+                    location: 'Located at Jalan Mayang, Kuala Lumpur. Less than 1km to major embassies, Grade A corporate towers, and world-class healthcare like Prince Court Medical Centre.',
+                    wa_msg: 'Hi Dr. Dang, I would like to request more information and floor plans for Armani Prestige.'
+                },
+                zh: {
+                    title: 'Armani Prestige',
+                    cardDesc: '一座非凡的59层永久产权豪华塔楼，距离标志性的双子塔、Avenue-K和阳光广场（Suria KLCC）仅几步之遥。',
+                    intro: '一座非凡的59层永久产权豪华塔楼，距离标志性的双子塔、Avenue-K和阳光广场（Suria KLCC）仅几步之遥。从奢华的中心体验城市生活的脉搏。',
+                    whyBuy: '<ul class="list-disc pl-5 space-y-2"><li>吉隆坡金三角黄金地段，具有无与伦比的资本增值潜力。</li><li>步行即可到达阳光广场（Suria KLCC）和 Avenue K 购物目的地。</li><li>一览无余的城市天际线景观，以双子塔为特色。</li><li>独家五星级生活设施和顶级安保。</li></ul>',
+                    layout: '高级办公与住宅混合。A型和B型面积从273平方英尺到330平方英尺不等，非常适合高收益的城市投资或专属SOHO套房。',
+                    location: '位于吉隆坡 Jalan Mayang。距离主要大使馆、甲级写字楼和太子阁医疗中心（Prince Court）等世界级医疗机构不到1公里。',
+                    wa_msg: '邓医生您好，我想索取更多关于 Armani Prestige 的信息和平面图。'
+                },
+                ja: {
+                    title: 'Armani Prestige',
+                    cardDesc: 'ペトロナスツインタワー、Avenue-K、スリアKLCCモールからわずか数歩に位置する、並外れた59階建てのフリーホールド高級タワー。',
+                    intro: '象徴的なペトロナスツインタワー、Avenue-K、スリアKLCCモールからわずか数歩に位置する、並外れた59階建てのフリーホールド高級タワー。贅沢の中心から都市生活の鼓動を体験してください。',
+                    whyBuy: '<ul class="list-disc pl-5 space-y-2"><li>比類のない資本増価の可能性を秘めたKLゴールデントライアングルの最高の住所。</li><li>スリアKLCCとアベニューKショッピング目的地まで徒歩圏内。</li><li>ペトロナスツインタワーをフィーチャーした遮るもののない街のスカイラインの景色。</li><li>排他的な5つ星のライフスタイル施設とトップクラスのセキュリティ。</li></ul>',
+                    layout: 'プレミアムオフィスと住宅のミックス。タイプAおよびBは273平方フィートから330平方フィートから始まり、高利回りの都市投資や専用のSOHOスイートに最適です。',
+                    location: 'クアラルンプールのJalan Mayangに位置。主要な大使館、グレードAの企業のタワー、およびプリンスコートメディカルセンターなどの世界クラスの医療機関から1km以内。',
+                    wa_msg: 'ダン博士、Armani Prestigeのさらに詳しい情報と間取り図をリクエストしたいです。'
+                },
+                ms: {
+                    title: 'Armani Prestige',
+                    cardDesc: 'Menara mewah pegangan bebas 59 tingkat yang luar biasa, terletak hanya beberapa langkah dari Menara Berkembar Petronas, Avenue-K, dan Suria KLCC.',
+                    intro: 'Menara mewah pegangan bebas 59 tingkat yang luar biasa, terletak hanya beberapa langkah dari Menara Berkembar Petronas, Avenue-K, dan Suria KLCC. Alami denyutan nadi kehidupan bandar dari pusat kemewahan.',
+                    whyBuy: '<ul class="list-disc pl-5 space-y-2"><li>Alamat Utama Segitiga Emas KL dengan potensi peningkatan modal yang tiada tandingan.</li><li>Jarak berjalan kaki ke destinasi membeli-belah Suria KLCC & Avenue K.</li><li>Pemandangan latar langit bandar tanpa halangan yang menampilkan Menara Berkembar Petronas.</li><li>Kemudahan gaya hidup 5 bintang eksklusif dan keselamatan tahap tertinggi.</li></ul>',
+                    layout: 'Campuran Pejabat & Kediaman Premium. Jenis A & B bermula dari 273 kaki persegi hingga 330 kaki persegi, sesuai untuk pelaburan bandar hasil tinggi atau suite SOHO eksklusif.',
+                    location: 'Terletak di Jalan Mayang, Kuala Lumpur. Kurang dari 1km ke kedutaan utama, menara korporat Gred A, dan penjagaan kesihatan bertaraf dunia seperti Pusat Perubatan Prince Court.',
+                    wa_msg: 'Hai Dr. Dang, saya ingin meminta maklumat lanjut dan pelan lantai untuk Armani Prestige.'
+                }
+            },
+            'armani-hallson': {
+                image: 'img/armani-hallson.jpg',
+                en: {
+                    title: 'Armani Hallson KLCC',
+                    cardDesc: 'A prestigious freehold 2.6-acre development featuring SOHO and SOVO units, just 300m from KLCC.',
+                    intro: 'A prestigious freehold 2.6-acre development featuring SOHO and SOVO units, just 300m from KLCC. Offers ultra-luxury rooftop facilities including an elevated heated pool, sky gym, and sunken cabana at Level 67-68.',
+                    whyBuy: '<ul class="list-disc pl-5 space-y-2"><li>Direct elevated walkway connecting seamlessly to KLCC (only 300m away).</li><li>Award-winning developer (Armani Group) with a RM3 Billion GDV project.</li><li>Ultra-luxury rooftop facilities (Level 67 & 68) including an Onsen, Sky Pool, and Sky Gym.</li><li>Prime Central Business District location near Tun Razak Exchange.</li></ul>',
+                    layout: 'Features 1 SOHO Tower (775 Units) and 2 SOVO Towers (1,440 Units). SOHO sizes range from 538 - 558 sq.ft. SOVO sizes range from 406 - 1,182 sq.ft.',
+                    location: 'Jalan Ampang, KLCC. Walking distance to Bukit Nanas Monorail Station and seamless access to AKLEH and Jalan P. Ramlee.',
+                    wa_msg: 'Hi Dr. Dang, I would like to request more information and floor plans for Armani Hallson KLCC.'
+                },
+                zh: {
+                    title: 'Armani Hallson KLCC',
+                    cardDesc: '一个著名的2.6英亩永久产权开发项目，设有SOHO和SOVO单位，距离KLCC仅300米。',
+                    intro: '一个著名的2.6英亩永久产权开发项目，设有SOHO和SOVO单位，距离KLCC仅300米。在67-68层提供超豪华的屋顶设施，包括高架温水游泳池、空中健身房和下沉式凉亭。',
+                    whyBuy: '<ul class="list-disc pl-5 space-y-2"><li>直接的高架人行道无缝连接到KLCC（仅300米远）。</li><li>屡获殊荣的开发商（Armani Group），拥有30亿令吉的发展总值（GDV）项目。</li><li>超豪华的屋顶设施（67和68层），包括温泉、空中游泳池和空中健身房。</li><li>靠近敦拉萨国际贸易中心（TRX）的黄金中央商务区位置。</li></ul>',
+                    layout: '拥有1栋SOHO塔楼（775个单位）和2栋SOVO塔楼（1,440个单位）。SOHO面积从538到558平方英尺不等。SOVO面积从406到1,182平方英尺不等。',
+                    location: '安邦路 (Jalan Ampang)，KLCC。步行即可到达 Bukit Nanas 单轨火车站，无缝连接 AKLEH 大道和 P. Ramlee 路。',
+                    wa_msg: '邓医生您好，我想索取更多关于 Armani Hallson KLCC 的信息和平面图。'
+                },
+                ja: {
+                    title: 'Armani Hallson KLCC',
+                    cardDesc: 'KLCCからわずか300mのSOHOおよびSOVOユニットを備えた権威ある2.6エーカーのフリーホールド開発。',
+                    intro: 'KLCCからわずか300mのSOHOおよびSOVOユニットを備えた権威ある2.6エーカーのフリーホールド開発。レベル67〜68には、高架温水プール、スカイジム、サンケンカバナなどの超高級ルーフトップ施設を提供しています。',
+                    whyBuy: '<ul class="list-disc pl-5 space-y-2"><li>KLCC（わずか300m離れた場所）にシームレスにつながる直接の高架歩道。</li><li>受賞歴のある開発者（アルマーニグループ）によるRM30億GDVプロジェクト。</li><li>温泉、スカイプール、スカイジムを含む超高級ルーフトップ施設（レベル67および68）。</li><li>トゥンラザクエクスチェンジの近くのプライムセントラルビジネス地区の場所。</li></ul>',
+                    layout: '1つのSOHOタワー（775ユニット）と2つのSOVOタワー（1,440ユニット）を備えています。SOHOのサイズは538〜558平方フィートです。SOVOのサイズは406〜1,182平方フィートです。',
+                    location: 'Jalan Ampang, KLCC。Bukit Nanasモノレール駅まで徒歩圏内で、AKLEHおよびJalan P. Ramleeへのシームレスなアクセス。',
+                    wa_msg: 'ダン博士、Armani Hallson KLCCのさらに詳しい情報と間取り図をリクエストしたいです。'
+                },
+                ms: {
+                    title: 'Armani Hallson KLCC',
+                    cardDesc: 'Pembangunan pegangan bebas 2.6 ekar yang berprestij yang menampilkan unit SOHO dan SOVO, hanya 300m dari KLCC.',
+                    intro: 'Pembangunan pegangan bebas 2.6 ekar yang berprestij yang menampilkan unit SOHO dan SOVO, hanya 300m dari KLCC. Menawarkan kemudahan atas bumbung ultra-mewah termasuk kolam air panas bertingkat, gim langit, dan cabana tenggelam di Aras 67-68.',
+                    whyBuy: '<ul class="list-disc pl-5 space-y-2"><li>Laluan pejalan kaki bertingkat secara langsung yang menghubungkan dengan lancar ke KLCC (hanya 300m jauhnya).</li><li>Pemaju yang memenangi anugerah (Kumpulan Armani) dengan projek GDV RM3 Bilion.</li><li>Kemudahan atas bumbung ultra-mewah (Aras 67 & 68) termasuk Onsen, Kolam Renang Langit, dan Gim Langit.</li><li>Lokasi Daerah Pusat Perniagaan Utama berhampiran Tun Razak Exchange.</li></ul>',
+                    layout: 'Menampilkan 1 Menara SOHO (775 Unit) dan 2 Menara SOVO (1,440 Unit). Saiz SOHO berkisar antara 538 - 558 kaki persegi. Saiz SOVO berkisar antara 406 - 1,182 kaki persegi.',
+                    location: 'Jalan Ampang, KLCC. Jarak berjalan kaki ke Stesen Monorel Bukit Nanas dan akses lancar ke AKLEH dan Jalan P. Ramlee.',
+                    wa_msg: 'Hai Dr. Dang, saya ingin meminta maklumat lanjut dan pelan lantai untuk Armani Hallson KLCC.'
+                }
+            },
+            'divine-klcc': {
+                image: 'img/divine-klcc.jpg',
+                en: {
+                    title: 'Divine KLCC',
+                    cardDesc: 'A premium property development shaping how Malaysians build and live. Integrating state-of-the-art construction with elegant home and living solutions in a highly strategic location.',
+                    intro: 'A premium property development shaping how Malaysians build and live. Integrating state-of-the-art construction with elegant home and living solutions in a highly strategic location.',
+                    whyBuy: '<ul class="list-disc pl-5 space-y-2"><li>Backed by Chin Hin Group, a financially strong and trusted public-listed leader.</li><li>Built using state-of-the-art Industrialised Building System (IBS) & Building Information Modelling (BIM).</li><li>Value-added layout features curated by highly experienced architects.</li><li>In-house supply of high-grade building materials ensuring uncompromising quality control.</li></ul>',
+                    layout: 'Thoughtfully designed configurations providing end-to-end living solutions suitable for modern families and investors alike.',
+                    location: 'Strategic location situated near major transit routes and urban conveniences, minimizing commute times and maximizing lifestyle enjoyment.',
+                    wa_msg: 'Hi Dr. Dang, I would like to request more information and floor plans for Divine KLCC.'
+                },
+                zh: {
+                    title: 'Divine KLCC',
+                    cardDesc: '一项优质房地产开发项目，塑造马来西亚人的建筑和生活方式。在极具战略意义的位置整合最先进的建筑与优雅的家居及生活解决方案。',
+                    intro: '一项优质房地产开发项目，塑造马来西亚人的建筑和生活方式。在极具战略意义的位置整合最先进的建筑与优雅的家居及生活解决方案。',
+                    whyBuy: '<ul class="list-disc pl-5 space-y-2"><li>由财务稳健、备受信赖的上市领导者振兴集团（Chin Hin Group）支持。</li><li>采用最先进的工业化建筑系统（IBS）和建筑信息模型（BIM）建造。</li><li>由经验丰富的建筑师策划的增值布局功能。</li><li>内部供应高档建筑材料，确保毫不妥协的质量控制。</li></ul>',
+                    layout: '精心设计的配置，提供适合现代家庭和投资者的端到端生活解决方案。',
+                    location: '战略位置，靠近主要交通路线和城市便利设施，最大限度地减少通勤时间并最大限度地提高生活享受。',
+                    wa_msg: '邓医生您好，我想索取更多关于 Divine KLCC 的信息和平面图。'
+                },
+                ja: {
+                    title: 'Divine KLCC',
+                    cardDesc: 'マレーシア人の建築と生活の方法を形作るプレミアム不動産開発。 非常に戦略的な場所にあるエレガントな家と生活のソリューションと最先端の構造を統合します。',
+                    intro: 'マレーシア人の建築と生活の方法を形作るプレミアム不動産開発。 非常に戦略的な場所にあるエレガントな家と生活のソリューションと最先端の構造を統合します。',
+                    whyBuy: '<ul class="list-disc pl-5 space-y-2"><li>財政的に強力で信頼できる上場リーダーであるChin Hin Groupによってサポートされています。</li><li>最先端の工業化建築システム（IBS）およびビルディングインフォメーションモデリング（BIM）を使用して構築されています。</li><li>経験豊富な建築家によってキュレーションされた付加価値のあるレイアウト機能。</li><li>妥協のない品質管理を保証する高級建築材料の社内供給。</li></ul>',
+                    layout: '現代の家族や投資家に適したエンドツーエンドの生活ソリューションを提供する、思慮深く設計された構成。',
+                    location: '主要な交通ルートと都市の利便性の近くに位置する戦略的な場所であり、通勤時間を最小限に抑え、ライフスタイルの楽しみを最大限に引き出します。',
+                    wa_msg: 'ダン博士、Divine KLCCのさらに詳しい情報と間取り図をリクエストしたいです。'
+                },
+                ms: {
+                    title: 'Divine KLCC',
+                    cardDesc: 'Pembangunan hartanah premium yang membentuk cara rakyat Malaysia membina dan menjalani kehidupan. Mengintegrasikan pembinaan canggih dengan penyelesaian kediaman yang elegan.',
+                    intro: 'Pembangunan hartanah premium yang membentuk cara rakyat Malaysia membina dan menjalani kehidupan. Mengintegrasikan pembinaan canggih dengan penyelesaian rumah dan kediaman yang elegan di lokasi yang sangat strategik.',
+                    whyBuy: '<ul class="list-disc pl-5 space-y-2"><li>Disokong oleh Chin Hin Group, sebuah syarikat tersenarai awam yang kukuh dari segi kewangan dan dipercayai.</li><li>Dibina menggunakan Sistem Binaan Berindustri (IBS) & Pemodelan Maklumat Bangunan (BIM) yang canggih.</li><li>Ciri-ciri susun atur nilai tambah yang direka oleh arkitek yang sangat berpengalaman.</li><li>Bekalan bahan binaan gred tinggi dari dalam syarikat memastikan kawalan kualiti tanpa kompromi.</li></ul>',
+                    layout: 'Konfigurasi yang direka dengan teliti menyediakan penyelesaian kehidupan hujung-ke-hujung yang sesuai untuk keluarga moden dan pelabur.',
+                    location: 'Lokasi strategik yang terletak berhampiran laluan transit utama dan kemudahan bandar, meminimumkan masa perjalanan dan memaksimumkan kenikmatan gaya hidup.',
+                    wa_msg: 'Hai Dr. Dang, saya ingin meminta maklumat lanjut dan pelan lantai untuk Divine KLCC.'
+                }
+            }
+        };
+
+        let currentLang = 'en';
+        let activeModalId = null;
+
+        function changeLanguage(lang) {
+            currentLang = lang;
+            
+            // 1. Update text content for all elements with data-i18n
+            document.querySelectorAll('[data-i18n]').forEach(elem => {
+                const key = elem.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    if (elem.tagName.toLowerCase() === 'input' || elem.tagName.toLowerCase() === 'textarea') {
+                        elem.placeholder = translations[lang][key];
+                    } else {
+                        elem.innerHTML = translations[lang][key];
+                    }
+                }
+            });
+
+            // 2. Update dynamic property cards descriptions
+            ['armani-prestige', 'armani-hallson', 'divine-klcc'].forEach(propId => {
+                const descElem = document.getElementById(`card-desc-${propId}`);
+                if (descElem && propertyData[propId][lang].cardDesc) {
+                    descElem.innerText = propertyData[propId][lang].cardDesc;
+                }
+
+                // Update WhatsApp buttons on cards
+                const waElem = document.getElementById(`card-wa-${propId}`);
+                if (waElem) {
+                    waElem.href = `https://wa.me/60167508968?text=${encodeURIComponent(propertyData[propId][lang].wa_msg)}`;
+                }
+            });
+
+            // 3. Update main WhatsApp links with language specific text
+            document.getElementById('nav-whatsapp-link').href = `https://wa.me/60167508968?text=${encodeURIComponent(translations[lang].wa_general)}`;
+            document.getElementById('hero-whatsapp-link').href = `https://wa.me/60167508968?text=${encodeURIComponent(translations[lang].wa_hero)}`;
+            document.getElementById('cta-whatsapp-link').href = `https://wa.me/60167508968?text=${encodeURIComponent(translations[lang].wa_cta)}`;
+
+            // 4. Update Modal content if it is open
+            if (activeModalId) {
+                populateModal(activeModalId);
+            }
+        }
+
+        const modal = document.getElementById('propertyModal');
+        const modalContent = document.getElementById('modalContent');
+
+        function populateModal(propId) {
+            const data = propertyData[propId];
+            const langData = data[currentLang];
+            
+            if (!langData) return;
+
+            document.getElementById('modalTitle').innerText = langData.title;
+            document.getElementById('modalImg').src = data.image;
+            document.getElementById('modalIntro').innerText = langData.intro;
+            document.getElementById('modalWhyBuy').innerHTML = langData.whyBuy;
+            document.getElementById('modalLayout').innerText = langData.layout;
+            document.getElementById('modalLocation').innerText = langData.location;
+            document.getElementById('modalWhatsapp').href = `https://wa.me/60167508968?text=${encodeURIComponent(langData.wa_msg)}`;
+        }
+
+        function openModal(propId) {
+            activeModalId = propId;
+            populateModal(propId);
+
+            // Show modal and animate in
+            modal.style.display = 'flex';
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalContent.classList.remove('scale-95');
+            }, 10);
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        function closeModal() {
+            // Animate out
+            modal.classList.add('opacity-0');
+            modalContent.classList.add('scale-95');
+            setTimeout(() => {
+                modal.style.display = 'none';
+                activeModalId = null;
+            }, 300); // Matches transition duration
+            document.body.style.overflow = '';
+        }
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.style.display === 'flex') {
+                closeModal();
+            }
+        });
+
+        // Initialize default links
+        changeLanguage('en');
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 20) {
+                navbar.classList.add('shadow-md');
+            } else {
+                navbar.classList.remove('shadow-md');
+            }
+        });
+    </script>
+</body>
+</html>
