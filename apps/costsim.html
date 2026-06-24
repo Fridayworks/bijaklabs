@@ -1,0 +1,1745 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Cost Simulator</title>
+    <!-- Chart.js via CDN for charting -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            /* Light Theme Variables */
+            --bg-color: #f3f4f6;
+            --sidebar-bg: #1f2937;
+            --sidebar-text: #f9fafb;
+            --sidebar-hover: #374151;
+            --card-bg: #ffffff;
+            --text-main: #111827;
+            --text-muted: #6b7280;
+            --border-color: #e5e7eb;
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --radius: 8px;
+            --transition: all 0.2s ease;
+        }
+
+        [data-theme="dark"] {
+            /* Dark Theme Variables */
+            --bg-color: #111827;
+            --sidebar-bg: #030712;
+            --card-bg: #1f2937;
+            --text-main: #f9fafb;
+            --text-muted: #9ca3af;
+            --border-color: #374151;
+            --primary: #3b82f6;
+            --primary-hover: #60a5fa;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+            transition: background-color var(--transition), color var(--transition);
+        }
+
+        /* Layout */
+        .sidebar {
+            width: 250px;
+            background-color: var(--sidebar-bg);
+            color: var(--sidebar-text);
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links {
+            flex: 1;
+            padding: 20px 0;
+            overflow-y: auto;
+        }
+
+        .nav-link {
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--sidebar-text);
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition);
+            border-left: 3px solid transparent;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: var(--sidebar-hover);
+            border-left-color: var(--primary);
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .topbar {
+            height: 60px;
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            z-index: 10;
+        }
+
+        .content-scroll {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        /* UI Components */
+        .card {
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .grid { display: grid; gap: 20px; }
+        .grid-2 { grid-template-columns: repeat(2, 1fr); }
+        .grid-3 { grid-template-columns: repeat(3, 1fr); }
+        .grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+        .stat-card {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .stat-card h3 {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .stat-card .value {
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        .stat-card .trend {
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .trend.up { color: var(--success); }
+        .trend.down { color: var(--danger); }
+        .trend.neutral { color: var(--warning); }
+
+        .section-title {
+            font-size: 1.25rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 8px 16px;
+            border-radius: var(--radius);
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.875rem;
+        }
+
+        .btn-primary { background-color: var(--primary); color: white; }
+        .btn-primary:hover { background-color: var(--primary-hover); }
+        .btn-outline { background-color: transparent; border: 1px solid var(--border-color); color: var(--text-main); }
+        .btn-outline:hover { background-color: var(--bg-color); }
+        .btn-danger { background-color: var(--danger); color: white; }
+        
+        .btn-icon { padding: 6px; border-radius: 4px; background: transparent; border: 1px solid var(--border-color); cursor: pointer; color: var(--text-main); }
+        .btn-icon:hover { background: var(--bg-color); }
+
+        /* Forms & Inputs */
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 6px; font-size: 0.875rem; color: var(--text-muted); }
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-size: 1rem;
+        }
+        .form-control:focus { outline: none; border-color: var(--primary); }
+
+        /* Sliders */
+        .slider-container { margin-bottom: 20px; }
+        .slider-header { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.875rem; }
+        input[type="range"] {
+            width: 100%;
+            -webkit-appearance: none;
+            background: transparent;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 16px;
+            width: 16px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            margin-top: -6px;
+        }
+        input[type="range"]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: var(--border-color);
+            border-radius: 2px;
+        }
+
+        /* Tables */
+        .table-responsive { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        th, td { padding: 12px 15px; border-bottom: 1px solid var(--border-color); }
+        th { color: var(--text-muted); font-size: 0.875rem; font-weight: 500; }
+        tr:last-child td { border-bottom: none; }
+
+        /* Toggles */
+        .toggle {
+            position: relative;
+            display: inline-block;
+            width: 40px;
+            height: 20px;
+        }
+        .toggle input { opacity: 0; width: 0; height: 0; }
+        .slider {
+            position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+            background-color: var(--text-muted); transition: .4s; border-radius: 20px;
+        }
+        .slider:before {
+            position: absolute; content: ""; height: 16px; width: 16px; left: 2px; bottom: 2px;
+            background-color: white; transition: .4s; border-radius: 50%;
+        }
+        input:checked + .slider { background-color: var(--success); }
+        input:checked + .slider:before { transform: translateX(20px); }
+
+        /* Badges */
+        .badge {
+            padding: 4px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: 500;
+        }
+        .badge-fixed { background-color: rgba(59, 130, 246, 0.1); color: #3b82f6; }
+        .badge-variable { background-color: rgba(245, 158, 11, 0.1); color: #f59e0b; }
+
+        /* Canvas */
+        #nodeGraph {
+            width: 100%;
+            height: 500px;
+            background-color: var(--bg-color);
+            border-radius: var(--radius);
+            cursor: grab;
+        }
+        #nodeGraph:active { cursor: grabbing; }
+
+        /* Modals */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(0,0,0,0.5);
+            display: flex; justify-content: center; align-items: center;
+            z-index: 1000; opacity: 0; pointer-events: none; transition: var(--transition);
+        }
+        .modal-overlay.active { opacity: 1; pointer-events: all; }
+        .modal {
+            background-color: var(--card-bg); width: 90%; max-width: 500px;
+            border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow);
+            transform: translateY(-20px); transition: var(--transition);
+        }
+        .modal-overlay.active .modal { transform: translateY(0); }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .modal-footer { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
+
+        /* Utilities */
+        .hidden { display: none !important; }
+        .flex { display: flex; }
+        .justify-between { justify-content: space-between; }
+        .items-center { align-items: center; }
+        .gap-4 { gap: 1rem; }
+        .mt-4 { margin-top: 1rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        
+        .recommendation-list { list-style: none; }
+        .recommendation-item {
+            padding: 15px; border-left: 4px solid var(--primary);
+            background-color: var(--bg-color); margin-bottom: 10px; border-radius: 0 var(--radius) var(--radius) 0;
+        }
+        .recommendation-item.warning { border-color: var(--warning); }
+        .recommendation-item.danger { border-color: var(--danger); }
+        .recommendation-item.success { border-color: var(--success); }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .grid-4 { grid-template-columns: repeat(2, 1fr); }
+            .grid-3 { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .sidebar { position: fixed; left: -250px; height: 100%; }
+            .sidebar.open { left: 0; }
+            .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+            .mobile-menu-btn { display: block; }
+        }
+        @media (min-width: 769px) {
+            .mobile-menu-btn { display: none; }
+        }
+
+        /* Print Styles */
+        @media print {
+            .sidebar, .topbar, .btn, .no-print { display: none !important; }
+            .main-content, .content-scroll { overflow: visible; padding: 0; height: auto; }
+            body { background-color: white; color: black; }
+            .card { box-shadow: none; border: 1px solid #ccc; break-inside: avoid; margin-bottom: 20px; }
+            .grid { display: block; }
+            canvas { max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <span>📊</span> <span data-i18n="appTitle">Cost Simulator</span>
+        </div>
+        <nav class="nav-links">
+            <a class="nav-link active" data-target="dashboard"><span>📈</span> <span data-i18n="navDash">Dashboard</span></a>
+            <a class="nav-link" data-target="revenue-expenses"><span>💰</span> <span data-i18n="navRevExp">Revenue & Expenses</span></a>
+            <a class="nav-link" data-target="simulation"><span>🎛️</span> <span data-i18n="navSim">Scenarios & Simulation</span></a>
+            <a class="nav-link" data-target="graph"><span>🕸️</span> <span data-i18n="navGraph">Business Graph</span></a>
+            <a class="nav-link" data-target="forecast"><span>🔮</span> <span data-i18n="navForecast">Cash Flow Forecast</span></a>
+            <a class="nav-link" data-target="insights"><span>🧠</span> <span data-i18n="navInsights">AI Insights</span></a>
+        </nav>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <!-- Topbar -->
+        <header class="topbar no-print">
+            <div class="flex items-center gap-4">
+                <button class="btn-icon mobile-menu-btn" id="mobileMenuBtn">☰</button>
+                <h2 id="currentViewTitle" data-i18n="navDash">Dashboard</h2>
+            </div>
+            <div class="flex items-center gap-4">
+                <button class="btn btn-outline" id="langToggle">🌐 中文</button>
+                <button class="btn btn-outline" id="themeToggle" data-i18n="theme">🌓 Theme</button>
+                <button class="btn btn-outline" id="exportBtn" data-i18n="export">📥 Export Data</button>
+                <button class="btn btn-primary" id="printBtn" data-i18n="print">🖨️ Print Report</button>
+            </div>
+        </header>
+
+        <!-- Scrollable Content -->
+        <div class="content-scroll" id="contentArea">
+            
+            <!-- VIEW: DASHBOARD -->
+            <div id="view-dashboard" class="view">
+                <div class="grid grid-4 mb-4">
+                    <div class="card stat-card">
+                        <h3 data-i18n="simRev">Simulated Monthly Revenue</h3>
+                        <div class="value" id="stat-revenue">$0</div>
+                        <div class="trend" id="trend-revenue"></div>
+                    </div>
+                    <div class="card stat-card">
+                        <h3 data-i18n="simExp">Simulated Monthly Expenses</h3>
+                        <div class="value" id="stat-expenses">$0</div>
+                        <div class="trend" id="trend-expenses"></div>
+                    </div>
+                    <div class="card stat-card">
+                        <h3 data-i18n="netProfit">Net Profit</h3>
+                        <div class="value" id="stat-profit">$0</div>
+                        <div class="trend" id="trend-profit"></div>
+                    </div>
+                    <div class="card stat-card">
+                        <h3 data-i18n="margin">Profit Margin</h3>
+                        <div class="value" id="stat-margin">0%</div>
+                        <div class="trend" id="trend-margin"></div>
+                    </div>
+                </div>
+
+                <div class="grid grid-4 mb-4">
+                    <div class="card stat-card" style="grid-column: span 2;">
+                        <h3 data-i18n="breakeven">Break-Even Revenue (Monthly)</h3>
+                        <div class="value" id="stat-breakeven">$0</div>
+                        <div class="trend text-muted" data-i18n="fixedNote">Fixed costs / Contribution margin</div>
+                    </div>
+                    <div class="card stat-card" style="grid-column: span 2;">
+                        <h3 data-i18n="runway">Cash Runway</h3>
+                        <div class="value" id="stat-runway">∞ Months</div>
+                        <div class="trend text-muted" id="runway-subtext" data-i18n="reserveNote">Assuming $100k cash reserve</div>
+                    </div>
+                </div>
+
+                <div class="grid grid-2 mb-4">
+                    <div class="card">
+                        <h3 class="section-title" data-i18n="revVsExp">Revenue vs Expenses</h3>
+                        <div style="position: relative; height: 300px; width: 100%;">
+                            <canvas id="chartRevExp"></canvas>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3 class="section-title" data-i18n="dashForecast">12-Month Cash Forecast</h3>
+                        <div style="position: relative; height: 300px; width: 100%;">
+                            <canvas id="chartDashForecast"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-3">
+                    <div class="card">
+                        <h3 class="section-title" data-i18n="revBreakdown">Revenue Breakdown</h3>
+                        <div style="position: relative; height: 300px; width: 100%;">
+                            <canvas id="chartRevBreakdown"></canvas>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3 class="section-title" data-i18n="expBreakdown">Expense Breakdown</h3>
+                        <div style="position: relative; height: 300px; width: 100%;">
+                            <canvas id="chartExpBreakdown"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW: REVENUE & EXPENSES -->
+            <div id="view-revenue-expenses" class="view hidden">
+                <div class="grid grid-2">
+                    <!-- Revenue Management -->
+                    <div class="card">
+                        <div class="section-title">
+                            <span data-i18n="revStreams">Revenue Streams</span>
+                            <button class="btn btn-primary btn-sm" onclick="app.ui.openModal('revenue')" data-i18n="addBtn">+ Add</button>
+                        </div>
+                        <div class="table-responsive">
+                            <table id="revenueTable">
+                                <thead>
+                                    <tr>
+                                        <th data-i18n="thName">Name</th>
+                                        <th data-i18n="thAmt">Amount /mo</th>
+                                        <th data-i18n="thGrowth">Growth</th>
+                                        <th data-i18n="thActive">Active</th>
+                                        <th data-i18n="thActions">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody><!-- Injected via JS --></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Expense Management -->
+                    <div class="card">
+                        <div class="section-title">
+                            <span data-i18n="expenses">Expenses</span>
+                            <button class="btn btn-primary btn-sm" onclick="app.ui.openModal('expense')" data-i18n="addBtn">+ Add</button>
+                        </div>
+                        <div class="table-responsive">
+                            <table id="expenseTable">
+                                <thead>
+                                    <tr>
+                                        <th data-i18n="thName">Name</th>
+                                        <th data-i18n="thAmt">Amount /mo</th>
+                                        <th data-i18n="thType">Type</th>
+                                        <th data-i18n="thActive">Active</th>
+                                        <th data-i18n="thActions">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody><!-- Injected via JS --></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW: SIMULATION -->
+            <div id="view-simulation" class="view hidden">
+                <div class="grid grid-2 mb-4">
+                    <!-- Simulation Sliders -->
+                    <div class="card">
+                        <h3 class="section-title" data-i18n="rtSim">Real-Time Simulation</h3>
+                        <p class="text-muted mb-4" style="font-size: 0.875rem;" data-i18n="simDesc">Adjust market and operational factors to see real-time impact on your bottom line.</p>
+                        
+                        <div class="slider-container">
+                            <div class="slider-header">
+                                <span data-i18n="simSl1">Overall Revenue Change</span>
+                                <span id="val-sim-rev">0%</span>
+                            </div>
+                            <input type="range" id="sim-rev" min="-50" max="100" value="0" step="1">
+                        </div>
+
+                        <div class="slider-container">
+                            <div class="slider-header">
+                                <span data-i18n="simSl2">Salary & Wages Increase</span>
+                                <span id="val-sim-salary">0%</span>
+                            </div>
+                            <input type="range" id="sim-salary" min="0" max="50" value="0" step="1">
+                        </div>
+
+                        <div class="slider-container">
+                            <div class="slider-header">
+                                <span data-i18n="simSl3">Rent/Facilities Increase</span>
+                                <span id="val-sim-rent">0%</span>
+                            </div>
+                            <input type="range" id="sim-rent" min="0" max="100" value="0" step="1">
+                        </div>
+
+                        <div class="slider-container">
+                            <div class="slider-header">
+                                <span data-i18n="simSl4">Marketing Budget Adj.</span>
+                                <span id="val-sim-marketing">0%</span>
+                            </div>
+                            <input type="range" id="sim-marketing" min="-50" max="200" value="0" step="5">
+                        </div>
+
+                        <div class="slider-container">
+                            <div class="slider-header">
+                                <span data-i18n="simSl5">General Inflation (All Exp)</span>
+                                <span id="val-sim-inflation">0%</span>
+                            </div>
+                            <input type="range" id="sim-inflation" min="0" max="20" value="0" step="0.5">
+                        </div>
+                        
+                        <button class="btn btn-outline w-full mt-4" style="width: 100%" onclick="app.resetSimulation()" data-i18n="resetBtn">Reset Sliders</button>
+                    </div>
+
+                    <!-- Simulation Impact Charts -->
+                    <div class="flex" style="flex-direction: column; gap: 20px;">
+                        <div class="card">
+                            <h3 class="section-title" data-i18n="ovImpact">Overall Impact</h3>
+                            <p class="text-muted mb-4" style="font-size: 0.875rem;" data-i18n="ovDesc">Base vs simulated total metrics.</p>
+                            <div style="position: relative; height: 200px; width: 100%;">
+                                <canvas id="chartSimulation"></canvas>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <h3 class="section-title" data-i18n="catImpact">Impact by Category</h3>
+                            <p class="text-muted mb-4" style="font-size: 0.875rem;" data-i18n="catDesc">Base vs simulated metrics by category.</p>
+                            <div style="position: relative; height: 200px; width: 100%; margin-bottom: 20px;">
+                                <canvas id="chartSimRevBreakdown"></canvas>
+                            </div>
+                            <div style="position: relative; height: 200px; width: 100%;">
+                                <canvas id="chartSimExpBreakdown"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scenario Manager -->
+                <div class="card mb-4">
+                    <h3 class="section-title" data-i18n="scenComp">Scenario Comparison</h3>
+                    <div class="flex gap-4 mb-4">
+                        <input type="text" id="scenarioName" class="form-control" placeholder="Scenario Name (e.g. Best Case)">
+                        <button class="btn btn-primary" onclick="app.saveScenario()" data-i18n="saveCur">Save Current</button>
+                    </div>
+                    <div class="table-responsive">
+                        <table id="scenarioTable">
+                            <thead>
+                                <tr>
+                                    <th data-i18n="thScen">Scenario</th>
+                                    <th data-i18n="thRev">Revenue</th>
+                                    <th data-i18n="thExp">Expenses</th>
+                                    <th data-i18n="thProf">Profit</th>
+                                    <th data-i18n="thMar">Margin</th>
+                                    <th data-i18n="thActions">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody><!-- Injected --></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW: GRAPH -->
+            <div id="view-graph" class="view hidden">
+                <div class="card">
+                    <h3 class="section-title" data-i18n="bizEco">Interactive Business Ecosystem</h3>
+                    <p class="text-muted mb-4" style="font-size: 0.875rem;" data-i18n="ecoDesc">Drag nodes to rearrange. This visualizes the relationship between your business, revenues, and expenses dynamically.</p>
+                    <canvas id="nodeGraph"></canvas>
+                </div>
+            </div>
+
+            <!-- VIEW: FORECAST -->
+            <div id="view-forecast" class="view hidden">
+                <div class="card mb-4">
+                    <h3 class="section-title" data-i18n="cfFore">Cash Flow Forecast (36 Months)</h3>
+                    <div style="position: relative; height: 350px; width: 100%;">
+                        <canvas id="chartForecast"></canvas>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="table-responsive">
+                        <table id="forecastTable">
+                            <thead>
+                                <tr>
+                                    <th data-i18n="thMonth">Month</th>
+                                    <th data-i18n="thProjRev">Projected Revenue</th>
+                                    <th data-i18n="thProjExp">Projected Expenses</th>
+                                    <th data-i18n="thNetCf">Net Cash Flow</th>
+                                    <th data-i18n="thCumC">Cumulative Cash</th>
+                                </tr>
+                            </thead>
+                            <tbody><!-- Injected --></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW: INSIGHTS -->
+            <div id="view-insights" class="view hidden">
+                <div class="card">
+                    <h3 class="section-title" data-i18n="aiRec">AI Financial Recommendations</h3>
+                    <p class="text-muted mb-4" style="font-size: 0.875rem;" data-i18n="aiDesc">Rule-based engine analyzing your current financial structure based on simulation values.</p>
+                    <ul class="recommendation-list" id="insightsList">
+                        <!-- Injected -->
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Modal Form (Reusable) -->
+    <div class="modal-overlay" id="itemModalOverlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="modalTitle">Add Item</h3>
+                <button class="btn-icon" onclick="app.ui.closeModal()">✕</button>
+            </div>
+            <form id="itemForm" onsubmit="event.preventDefault(); app.saveItem();">
+                <input type="hidden" id="itemType">
+                <input type="hidden" id="itemId">
+                
+                <div class="form-group">
+                    <label data-i18n="thName">Name</label>
+                    <input type="text" id="itemName" class="form-control" required placeholder="e.g. Software Subscriptions">
+                </div>
+                
+                <div class="form-group">
+                    <label data-i18n="thAmt">Monthly Amount ($)</label>
+                    <input type="number" id="itemAmount" class="form-control" required min="0" step="0.01">
+                </div>
+
+                <div class="form-group" id="groupGrowth">
+                    <label>Monthly Growth Rate (%)</label>
+                    <input type="number" id="itemGrowth" class="form-control" value="0" step="0.1">
+                </div>
+
+                <div class="form-group" id="groupType">
+                    <label data-i18n="thType">Cost Type</label>
+                    <select id="itemExpType" class="form-control">
+                        <option value="fixed">Fixed Cost (e.g. Rent, Salary)</option>
+                        <option value="variable">Variable Cost (e.g. Logistics, Materials)</option>
+                    </select>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" onclick="app.ui.closeModal()" data-i18n="cancel">Cancel</button>
+                    <button type="submit" class="btn btn-primary" data-i18n="saveItem">Save Item</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Confirm Modal -->
+    <div class="modal-overlay" id="confirmModalOverlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 data-i18n="confirmAction">Confirm Action</h3>
+                <button class="btn-icon" onclick="app.ui.closeConfirm()">✕</button>
+            </div>
+            <p id="confirmMessage" class="mb-4" data-i18n="areYouSure">Are you sure?</p>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="app.ui.closeConfirm()" data-i18n="cancel">Cancel</button>
+                <button class="btn btn-danger" id="confirmActionBtn" data-i18n="confirm">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Logic -->
+    <script>
+        // --- 0. MULTILINGUAL SUPPORT ---
+        class I18n {
+            constructor() {
+                this.lang = localStorage.getItem('bcs_lang') || 'en';
+                this.dict = {
+                    en: {
+                        appTitle: "Cost Simulator",
+                        navDash: "Dashboard", navRevExp: "Revenue & Expenses", navSim: "Scenarios & Simulation", navGraph: "Business Graph", navForecast: "Cash Flow Forecast", navInsights: "AI Insights",
+                        theme: "🌓 Theme", export: "📥 Export Data", print: "🖨️ Print Report",
+                        simRev: "Simulated Monthly Revenue", simExp: "Simulated Monthly Expenses", netProfit: "Net Profit", margin: "Profit Margin", breakeven: "Break-Even Revenue (Monthly)", runway: "Cash Runway",
+                        fixedNote: "Fixed costs / Contribution margin", reserveNote: "Assuming $100k cash reserve",
+                        revVsExp: "Revenue vs Expenses", dashForecast: "12-Month Cash Forecast", revBreakdown: "Revenue Breakdown", expBreakdown: "Expense Breakdown",
+                        revStreams: "Revenue Streams", expenses: "Expenses", addBtn: "+ Add",
+                        thName: "Name", thAmt: "Amount /mo", thGrowth: "Growth", thActive: "Active", thActions: "Actions", thType: "Type",
+                        rtSim: "Real-Time Simulation", simDesc: "Adjust market and operational factors to see real-time impact on your bottom line.",
+                        simSl1: "Overall Revenue Change", simSl2: "Salary & Wages Increase", simSl3: "Rent/Facilities Increase", simSl4: "Marketing Budget Adj.", simSl5: "General Inflation (All Exp)", resetBtn: "Reset Sliders",
+                        ovImpact: "Overall Impact", ovDesc: "Base vs simulated total metrics.", catImpact: "Impact by Category", catDesc: "Base vs simulated metrics by category.",
+                        scenComp: "Scenario Comparison", saveCur: "Save Current", thScen: "Scenario", thRev: "Revenue", thExp: "Expenses", thProf: "Profit", thMar: "Margin", load: "Load",
+                        bizEco: "Interactive Business Ecosystem", ecoDesc: "Drag nodes to rearrange. This visualizes the relationship between your business, revenues, and expenses dynamically.",
+                        cfFore: "Cash Flow Forecast (36 Months)", thMonth: "Month", thProjRev: "Projected Revenue", thProjExp: "Projected Expenses", thNetCf: "Net Cash Flow", thCumC: "Cumulative Cash",
+                        aiRec: "AI Financial Recommendations", aiDesc: "Rule-based engine analyzing your current financial structure based on simulation values.",
+                        cancel: "Cancel", saveItem: "Save Item", confirm: "Confirm", confirmAction: "Confirm Action", areYouSure: "Are you sure?",
+                        chartRev: "Revenue", chartExp: "Expenses", chartBase: "Current Base", chartSim: "Simulated Impact", chartCum: "Cum. Cash", chartMRevExp: "Monthly Rev/Exp", chartCumCash: "Cumulative Cash",
+                        aiMarWarn: "Profit margin is below 10%. Consider price increases or reducing variable costs.",
+                        aiMarDan: "Business is operating at a loss. Immediate cost reduction or revenue generation needed.",
+                        aiMarSuc: "Excellent profit margins (>30%). High potential for reinvestment into growth.",
+                        aiStaff: "Staff costs are high", aiIndAvg: "of revenue. Industry average is typically 15-30%.",
+                        aiMkt: "Marketing investment is low", aiInc: "of revenue. Consider increasing to drive growth.",
+                        aiRun: "Cash runway is critically low", aiRunSec: "months. Secure funding or reduce burn rate immediately.",
+                        aiBal: "Financials look balanced. Keep up the good work!",
+                        months: "Months", profitable: "Profitable 🚀", n_a: "N/A (No Margin)",
+                        modalAddR: "Add Revenue", modalEditR: "Edit Revenue", modalAddE: "Add Expense", modalEditE: "Edit Expense",
+                        insight: "Insight:"
+                    },
+                    zh: {
+                        appTitle: "成本模拟器",
+                        navDash: "仪表盘", navRevExp: "收入与支出", navSim: "情景与模拟", navGraph: "商业图谱", navForecast: "现金流预测", navInsights: "AI 洞察",
+                        theme: "🌓 主题", export: "📥 导出数据", print: "🖨️ 打印报告",
+                        simRev: "模拟月收入", simExp: "模拟月支出", netProfit: "净利润", margin: "利润率", breakeven: "盈亏平衡收入 (月)", runway: "现金跑道",
+                        fixedNote: "固定成本 / 边际贡献", reserveNote: "假设有10万美元现金储备",
+                        revVsExp: "收入与支出对比", dashForecast: "12个月现金流预测", revBreakdown: "收入构成", expBreakdown: "支出构成",
+                        revStreams: "收入来源", expenses: "支出", addBtn: "+ 添加",
+                        thName: "名称", thAmt: "月金额", thGrowth: "增长率", thActive: "状态", thActions: "操作", thType: "类型",
+                        rtSim: "实时模拟", simDesc: "调整市场和运营因素，实时查看对底线的影响。",
+                        simSl1: "整体收入变动", simSl2: "薪资增长", simSl3: "租金/设施增长", simSl4: "营销预算调整", simSl5: "全局通货膨胀", resetBtn: "重置滑块",
+                        ovImpact: "总体影响", ovDesc: "基础与模拟的总体指标对比。", catImpact: "各类影响", catDesc: "基础与模拟的分类指标对比。",
+                        scenComp: "情景对比", saveCur: "保存当前", thScen: "情景", thRev: "收入", thExp: "支出", thProf: "利润", thMar: "利润率", load: "加载",
+                        bizEco: "交互式商业生态", ecoDesc: "拖动节点以重新排列。动态可视化您的业务、收入和支出之间的关系。",
+                        cfFore: "现金流预测 (36个月)", thMonth: "月份", thProjRev: "预计收入", thProjExp: "预计支出", thNetCf: "净现金流", thCumC: "累计现金",
+                        aiRec: "AI 财务建议", aiDesc: "基于模拟值分析当前财务结构的规则引擎。",
+                        cancel: "取消", saveItem: "保存", confirm: "确认", confirmAction: "确认操作", areYouSure: "您确定吗？",
+                        chartRev: "收入", chartExp: "支出", chartBase: "当前基础", chartSim: "模拟影响", chartCum: "累计现金", chartMRevExp: "月收入/支出", chartCumCash: "累计现金",
+                        aiMarWarn: "利润率低于10%。考虑提高价格或降低可变成本。",
+                        aiMarDan: "企业目前处于亏损状态。需要立即降低成本或增加收入。",
+                        aiMarSuc: "极佳的利润率 (>30%)。具有很高的复利增长潜力。",
+                        aiStaff: "员工成本偏高", aiIndAvg: "占收入。行业平均水平通常为 15-30%。",
+                        aiMkt: "营销投入较低", aiInc: "占收入。考虑增加投入以推动增长。",
+                        aiRun: "现金流极其紧张", aiRunSec: "个月。请立即确保资金来源或降低资金消耗速度。",
+                        aiBal: "财务状况看起来很平衡。继续保持！",
+                        months: "个月", profitable: "盈利 🚀", n_a: "无 (无利润)",
+                        modalAddR: "添加收入", modalEditR: "编辑收入", modalAddE: "添加支出", modalEditE: "编辑支出",
+                        insight: "洞察:"
+                    }
+                };
+            }
+            t(key) { return this.dict[this.lang][key] || key; }
+            toggle() {
+                this.lang = this.lang === 'en' ? 'zh' : 'en';
+                localStorage.setItem('bcs_lang', this.lang);
+                this.apply();
+                if(window.app) window.app.updateAll(); 
+            }
+            apply() {
+                document.querySelectorAll('[data-i18n]').forEach(el => {
+                    el.innerText = this.t(el.getAttribute('data-i18n'));
+                });
+                document.getElementById('langToggle').innerText = this.lang === 'en' ? '🌐 中文' : '🌐 EN';
+            }
+        }
+
+        // --- 1. STATE MANAGEMENT ---
+        class Store {
+            constructor() {
+                this.STORAGE_KEY = 'bcs_data_v1';
+                this.defaultData = {
+                    revenues: [
+                        { id: 'r1', name: 'Product Sales', amount: 50000, growthRate: 2, active: true },
+                        { id: 'r2', name: 'Subscription', amount: 20000, growthRate: 5, active: true },
+                        { id: 'r3', name: 'Consulting', amount: 15000, growthRate: 0, active: true }
+                    ],
+                    expenses: [
+                        { id: 'e1', name: 'Salary', amount: 30000, type: 'fixed', active: true },
+                        { id: 'e2', name: 'Rental', amount: 8000, type: 'fixed', active: true },
+                        { id: 'e3', name: 'Marketing', amount: 3000, type: 'variable', active: true },
+                        { id: 'e4', name: 'Utilities', amount: 2000, type: 'fixed', active: true },
+                        { id: 'e5', name: 'Software', amount: 1500, type: 'fixed', active: true }
+                    ],
+                    scenarios: [],
+                    simulation: { rev: 0, salary: 0, rent: 0, marketing: 0, inflation: 0 }
+                };
+                this.data = this.loadData();
+            }
+
+            loadData() {
+                const stored = localStorage.getItem(this.STORAGE_KEY);
+                return stored ? JSON.parse(stored) : JSON.parse(JSON.stringify(this.defaultData));
+            }
+
+            saveData() {
+                localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.data));
+            }
+        }
+
+        // --- 2. CALCULATOR ENGINE ---
+        class Calculator {
+            static calculateMetrics(data) {
+                let baseRev = 0, simRev = 0;
+                let baseExp = 0, simExp = 0;
+                let fixedExp = 0, variableExp = 0;
+                let simFixedExp = 0, simVariableExp = 0;
+
+                const { rev, salary, rent, marketing, inflation } = data.simulation;
+                const inflationMultiplier = 1 + (inflation / 100);
+
+                data.revenues.forEach(r => {
+                    if (!r.active) return;
+                    baseRev += r.amount;
+                    let simulated = r.amount * (1 + (r.growthRate/100)) * (1 + (rev/100));
+                    simRev += simulated;
+                });
+
+                data.expenses.forEach(e => {
+                    if (!e.active) return;
+                    baseExp += e.amount;
+                    if(e.type === 'fixed') fixedExp += e.amount;
+                    if(e.type === 'variable') variableExp += e.amount;
+
+                    let multiplier = 1;
+                    let nameLower = e.name.toLowerCase();
+                    
+                    if (nameLower.includes('salar') || nameLower.includes('wage')) multiplier += (salary / 100);
+                    if (nameLower.includes('rent') || nameLower.includes('lease')) multiplier += (rent / 100);
+                    if (nameLower.includes('market') || nameLower.includes('ad')) multiplier += (marketing / 100);
+
+                    let simulated = e.amount * multiplier * inflationMultiplier;
+                    simExp += simulated;
+
+                    if(e.type === 'fixed') simFixedExp += simulated;
+                    if(e.type === 'variable') simVariableExp += simulated;
+                });
+
+                let netProfit = simRev - simExp;
+                let margin = simRev > 0 ? (netProfit / simRev) * 100 : 0;
+                
+                let cmRatio = simRev > 0 ? (simRev - simVariableExp) / simRev : 0;
+                let breakEven = cmRatio > 0 ? simFixedExp / cmRatio : Infinity;
+
+                let cashReserve = 100000;
+                let runway = netProfit < 0 ? Math.abs(cashReserve / netProfit) : Infinity;
+
+                return {
+                    baseRev, simRev, baseExp, simExp,
+                    simFixedExp, simVariableExp, netProfit,
+                    margin, breakEven, runway, cashReserve
+                };
+            }
+
+            static generateForecast(currentMetrics, months = 36) {
+                let forecast = [];
+                let cumCash = currentMetrics.cashReserve;
+                let mRev = currentMetrics.simRev;
+                let mExp = currentMetrics.simExp;
+
+                for(let i=1; i<=months; i++) {
+                    mRev *= 1.01;
+                    mExp *= 1.005;
+                    let mProfit = mRev - mExp;
+                    cumCash += mProfit;
+                    forecast.push({ month: i, rev: mRev, exp: mExp, profit: mProfit, cumCash });
+                }
+                return forecast;
+            }
+        }
+
+        // --- 3. CHART MANAGER ---
+        class ChartManager {
+            constructor() {
+                this.charts = {};
+                Chart.defaults.color = 'var(--text-muted)';
+                Chart.defaults.font.family = "'Segoe UI', sans-serif";
+            }
+
+            init() {
+                this.createRevExpChart();
+                this.createDashForecastChart();
+                this.createRevBreakdownChart();
+                this.createExpBreakdownChart();
+                this.createForecastChart();
+                this.createSimulationChart();
+                this.createSimRevBreakdownChart();
+                this.createSimExpBreakdownChart();
+            }
+
+            update(metrics, data, forecast, baseMetrics) {
+                const t = (k) => window.app.i18n.t(k);
+
+                // Rev vs Exp
+                this.charts.revExp.data.datasets[0].label = t('chartRev');
+                this.charts.revExp.data.datasets[1].label = t('chartExp');
+                this.charts.revExp.data.datasets[0].data = [metrics.simRev];
+                this.charts.revExp.data.datasets[1].data = [metrics.simExp];
+                this.charts.revExp.update();
+
+                // Dash Forecast (12 months)
+                this.charts.dashForecast.data.datasets[0].label = t('chartCum');
+                this.charts.dashForecast.data.labels = forecast.slice(0, 12).map(f => `M${f.month}`);
+                this.charts.dashForecast.data.datasets[0].data = forecast.slice(0, 12).map(f => f.cumCash);
+                this.charts.dashForecast.update();
+
+                // Revenue Breakdown
+                let revLabels = [];
+                let revData = [];
+                const { rev } = data.simulation;
+                data.revenues.forEach(r => {
+                    if(!r.active) return;
+                    revLabels.push(r.name);
+                    revData.push(r.amount * (1 + (r.growthRate/100)) * (1 + (rev/100)));
+                });
+                this.charts.revBreakdown.data.labels = revLabels;
+                this.charts.revBreakdown.data.datasets[0].data = revData;
+                this.charts.revBreakdown.data.datasets[0].backgroundColor = revLabels.map((_, i) => `hsl(${(i*60/Math.max(1, revLabels.length-1)) + 140}, 70%, 50%)`);
+                this.charts.revBreakdown.update();
+
+                // Expense Breakdown
+                let expLabels = [];
+                let expData = [];
+                let { salary, rent, marketing, inflation } = data.simulation;
+                data.expenses.forEach(e => {
+                    if(!e.active) return;
+                    let mult = 1;
+                    let nl = e.name.toLowerCase();
+                    if(nl.includes('salar')) mult += salary/100;
+                    if(nl.includes('rent')) mult += rent/100;
+                    if(nl.includes('market')) mult += marketing/100;
+                    expLabels.push(e.name);
+                    expData.push(e.amount * mult * (1 + inflation/100));
+                });
+                this.charts.expBreakdown.data.labels = expLabels;
+                this.charts.expBreakdown.data.datasets[0].data = expData;
+                this.charts.expBreakdown.data.datasets[0].backgroundColor = expLabels.map((_, i) => `hsl(${(i*360/expLabels.length)}, 70%, 50%)`);
+                this.charts.expBreakdown.update();
+
+                // Forecast Chart
+                this.charts.forecast.data.datasets[0].label = t('chartRev');
+                this.charts.forecast.data.datasets[1].label = t('chartExp');
+                this.charts.forecast.data.datasets[2].label = t('chartCum');
+                this.charts.forecast.options.scales.y.title.text = t('chartMRevExp');
+                this.charts.forecast.options.scales.y1.title.text = t('chartCumCash');
+                this.charts.forecast.data.labels = forecast.map(f => `M${f.month}`);
+                this.charts.forecast.data.datasets[0].data = forecast.map(f => f.rev);
+                this.charts.forecast.data.datasets[1].data = forecast.map(f => f.exp);
+                this.charts.forecast.data.datasets[2].data = forecast.map(f => f.cumCash);
+                this.charts.forecast.update();
+
+                // Overall Simulation Chart
+                if (this.charts.simulation && baseMetrics) {
+                    this.charts.simulation.data.labels = [t('chartRev'), t('chartExp'), t('netProfit')];
+                    this.charts.simulation.data.datasets[0].label = t('chartBase');
+                    this.charts.simulation.data.datasets[1].label = t('chartSim');
+                    const baseProfit = baseMetrics.baseRev - baseMetrics.baseExp;
+                    this.charts.simulation.data.datasets[0].data = [baseMetrics.baseRev, baseMetrics.baseExp, baseProfit];
+                    this.charts.simulation.data.datasets[1].data = [metrics.simRev, metrics.simExp, metrics.netProfit];
+                    const profitColor = metrics.netProfit >= 0 ? '#3b82f6' : '#ef4444';
+                    this.charts.simulation.data.datasets[1].backgroundColor = ['#10b981', '#ef4444', profitColor];
+                    this.charts.simulation.update();
+                }
+
+                // Simulation Charts (Breakdown)
+                if (this.charts.simRev && this.charts.simExp) {
+                    let revBaseData = [], revSimData = [];
+                    data.revenues.forEach(r => {
+                        if(!r.active) return;
+                        revBaseData.push(r.amount);
+                        revSimData.push(r.amount * (1 + (r.growthRate/100)) * (1 + (rev/100)));
+                    });
+                    this.charts.simRev.data.labels = revLabels;
+                    this.charts.simRev.data.datasets[0].label = t('chartBase');
+                    this.charts.simRev.data.datasets[1].label = t('chartSim');
+                    this.charts.simRev.data.datasets[0].data = revBaseData;
+                    this.charts.simRev.data.datasets[1].data = revSimData;
+                    this.charts.simRev.update();
+
+                    let expBaseData = [], expSimData = [];
+                    const inflationMultiplier = 1 + (inflation / 100);
+                    data.expenses.forEach(e => {
+                        if(!e.active) return;
+                        expBaseData.push(e.amount);
+                        let multiplier = 1;
+                        let nl = e.name.toLowerCase();
+                        if(nl.includes('salar') || nl.includes('wage')) multiplier += (salary / 100);
+                        if(nl.includes('rent') || nl.includes('lease')) multiplier += (rent / 100);
+                        if(nl.includes('market') || nl.includes('ad')) multiplier += (marketing / 100);
+                        expSimData.push(e.amount * multiplier * inflationMultiplier);
+                    });
+                    this.charts.simExp.data.labels = expLabels;
+                    this.charts.simExp.data.datasets[0].label = t('chartBase');
+                    this.charts.simExp.data.datasets[1].label = t('chartSim');
+                    this.charts.simExp.data.datasets[0].data = expBaseData;
+                    this.charts.simExp.data.datasets[1].data = expSimData;
+                    this.charts.simExp.update();
+                }
+            }
+
+            createRevExpChart() {
+                const ctx = document.getElementById('chartRevExp').getContext('2d');
+                this.charts.revExp = new Chart(ctx, {
+                    type: 'bar',
+                    data: { labels: [''], datasets: [{ label: 'Revenue', data: [0], backgroundColor: '#10b981' }, { label: 'Expenses', data: [0], backgroundColor: '#ef4444' }] },
+                    options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true } } }
+                });
+            }
+
+            createDashForecastChart() {
+                const ctx = document.getElementById('chartDashForecast').getContext('2d');
+                this.charts.dashForecast = new Chart(ctx, {
+                    type: 'line',
+                    data: { labels: [], datasets: [{ label: 'Cum. Cash', data: [], borderColor: '#3b82f6', tension: 0.1, fill: true, backgroundColor: 'rgba(59, 130, 246, 0.1)' }] },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+                });
+            }
+
+            createRevBreakdownChart() {
+                const ctx = document.getElementById('chartRevBreakdown').getContext('2d');
+                this.charts.revBreakdown = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: { labels: [], datasets: [{ data: [], backgroundColor: [] }] },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+                });
+            }
+
+            createExpBreakdownChart() {
+                const ctx = document.getElementById('chartExpBreakdown').getContext('2d');
+                this.charts.expBreakdown = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: { labels: [], datasets: [{ data: [], backgroundColor: [] }] },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+                });
+            }
+
+            createForecastChart() {
+                const ctx = document.getElementById('chartForecast').getContext('2d');
+                this.charts.forecast = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: [],
+                        datasets: [
+                            { label: 'Revenue', data: [], borderColor: '#10b981', tension: 0.1, yAxisID: 'y' },
+                            { label: 'Expenses', data: [], borderColor: '#ef4444', tension: 0.1, yAxisID: 'y' },
+                            { label: 'Cum. Cash', data: [], borderColor: '#3b82f6', tension: 0.1, borderDash: [5,5], yAxisID: 'y1' }
+                        ]
+                    },
+                    options: { 
+                        responsive: true, maintainAspectRatio: false,
+                        scales: {
+                            y: { type: 'linear', display: true, position: 'left', title: { display: true, text: 'Monthly Rev/Exp' } },
+                            y1: { type: 'linear', display: true, position: 'right', title: { display: true, text: 'Cumulative Cash' }, grid: { drawOnChartArea: false } }
+                        }
+                    }
+                });
+            }
+
+            createSimulationChart() {
+                const ctx = document.getElementById('chartSimulation').getContext('2d');
+                this.charts.simulation = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Revenue', 'Expenses', 'Net Profit'],
+                        datasets: [
+                            { label: 'Current Base', data: [0, 0, 0], backgroundColor: '#9ca3af' },
+                            { label: 'Simulated Impact', data: [0, 0, 0], backgroundColor: ['#10b981', '#ef4444', '#3b82f6'] }
+                        ]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+
+            createSimRevBreakdownChart() {
+                const ctx = document.getElementById('chartSimRevBreakdown').getContext('2d');
+                this.charts.simRev = new Chart(ctx, {
+                    type: 'bar',
+                    data: { labels: [], datasets: [{ label: 'Current Base', data: [], backgroundColor: '#9ca3af' }, { label: 'Simulated Impact', data: [], backgroundColor: '#10b981' }] },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+
+            createSimExpBreakdownChart() {
+                const ctx = document.getElementById('chartSimExpBreakdown').getContext('2d');
+                this.charts.simExp = new Chart(ctx, {
+                    type: 'bar',
+                    data: { labels: [], datasets: [{ label: 'Current Base', data: [], backgroundColor: '#9ca3af' }, { label: 'Simulated Impact', data: [], backgroundColor: '#ef4444' }] },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+        }
+
+        // --- 4. NODE GRAPH VISUALIZATION ---
+        class GraphVisualization {
+            constructor(canvasId) {
+                this.canvas = document.getElementById(canvasId);
+                this.ctx = this.canvas.getContext('2d');
+                this.nodes = [];
+                this.links = [];
+                this.isDragging = false;
+                this.dragNode = null;
+                this.isPanning = false;
+                this.offsetX = 0;
+                this.offsetY = 0;
+                this.panStartX = 0;
+                this.panStartY = 0;
+                
+                this.setupEvents();
+                window.addEventListener('resize', () => this.resize());
+            }
+
+            setupEvents() {
+                this.canvas.addEventListener('mousedown', this.onMouseDown.bind(this));
+                this.canvas.addEventListener('mousemove', this.onMouseMove.bind(this));
+                this.canvas.addEventListener('mouseup', this.onMouseUp.bind(this));
+                this.canvas.addEventListener('mouseleave', this.onMouseUp.bind(this));
+            }
+
+            resize() {
+                const rect = this.canvas.parentElement.getBoundingClientRect();
+                this.canvas.width = rect.width;
+                this.canvas.height = 500;
+                this.draw();
+            }
+
+            buildGraph(data, metrics) {
+                this.nodes = [];
+                this.links = [];
+                const w = this.canvas.width || 800;
+                const h = this.canvas.height || 500;
+                const cx = w / 2, cy = h / 2;
+
+                const bizNode = { id: 'biz', x: cx, y: cy, radius: 40, label: 'Business', color: '#3b82f6' };
+                this.nodes.push(bizNode);
+
+                const revGroup = { id: 'revGroup', x: cx - 200, y: cy - 100, radius: 30, label: 'Total Rev\n' + formatMoney(metrics.simRev), color: '#10b981' };
+                this.nodes.push(revGroup);
+                this.links.push({ source: revGroup, target: bizNode });
+
+                let rAngle = Math.PI/2;
+                let rStep = Math.PI / Math.max(1, data.revenues.length);
+                data.revenues.filter(r=>r.active).forEach((r, i) => {
+                    let a = rAngle + (i * rStep) - (Math.PI/4);
+                    let nx = revGroup.x - 150 * Math.cos(a);
+                    let ny = revGroup.y - 150 * Math.sin(a);
+                    let node = { id: r.id, x: nx, y: ny, radius: 20, label: r.name, color: '#6ee7b7' };
+                    this.nodes.push(node);
+                    this.links.push({ source: node, target: revGroup });
+                });
+
+                const expGroup = { id: 'expGroup', x: cx + 200, y: cy + 100, radius: 30, label: 'Total Exp\n' + formatMoney(metrics.simExp), color: '#ef4444' };
+                this.nodes.push(expGroup);
+                this.links.push({ source: bizNode, target: expGroup });
+
+                let eAngle = -Math.PI/2;
+                let eStep = Math.PI / Math.max(1, data.expenses.length);
+                data.expenses.filter(e=>e.active).forEach((e, i) => {
+                    let a = eAngle + (i * eStep) - (Math.PI/4);
+                    let nx = expGroup.x + 150 * Math.cos(a);
+                    let ny = expGroup.y - 150 * Math.sin(a);
+                    let node = { id: e.id, x: nx, y: ny, radius: 20, label: e.name, color: '#fca5a5' };
+                    this.nodes.push(node);
+                    this.links.push({ source: expGroup, target: node });
+                });
+
+                this.offsetX = 0;
+                this.offsetY = 0;
+                this.draw();
+            }
+
+            draw() {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                this.ctx.save();
+                this.ctx.translate(this.offsetX, this.offsetY);
+                
+                this.ctx.lineWidth = 2;
+                this.ctx.strokeStyle = getComputedStyle(document.body).getPropertyValue('--border-color').trim();
+                this.links.forEach(l => {
+                    this.ctx.beginPath();
+                    this.ctx.moveTo(l.source.x, l.source.y);
+                    this.ctx.lineTo(l.target.x, l.target.y);
+                    this.ctx.stroke();
+                });
+
+                this.ctx.textAlign = 'center';
+                this.ctx.textBaseline = 'middle';
+                this.ctx.font = '12px "Segoe UI"';
+                const textColor = getComputedStyle(document.body).getPropertyValue('--text-main').trim();
+
+                this.nodes.forEach(n => {
+                    this.ctx.beginPath();
+                    this.ctx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
+                    this.ctx.fillStyle = n.color;
+                    this.ctx.fill();
+                    this.ctx.lineWidth = 3;
+                    this.ctx.strokeStyle = '#fff';
+                    this.ctx.stroke();
+
+                    this.ctx.fillStyle = textColor;
+                    let lines = n.label.split('\n');
+                    lines.forEach((line, i) => {
+                        this.ctx.fillText(line, n.x, n.y + (n.radius + 15) + (i * 14));
+                    });
+                });
+                
+                this.ctx.restore();
+            }
+
+            onMouseDown(e) {
+                const rect = this.canvas.getBoundingClientRect();
+                const mx = e.clientX - rect.left;
+                const my = e.clientY - rect.top;
+                const worldX = mx - this.offsetX;
+                const worldY = my - this.offsetY;
+                
+                this.dragNode = null;
+                for(let i = this.nodes.length - 1; i >= 0; i--) {
+                    let n = this.nodes[i];
+                    let dx = worldX - n.x;
+                    let dy = worldY - n.y;
+                    if (dx*dx + dy*dy <= n.radius*n.radius) {
+                        this.dragNode = n;
+                        break;
+                    }
+                }
+
+                if (this.dragNode) {
+                    this.isDragging = true;
+                } else {
+                    this.isPanning = true;
+                    this.panStartX = mx;
+                    this.panStartY = my;
+                    this.canvas.style.cursor = 'grabbing';
+                }
+            }
+
+            onMouseMove(e) {
+                if(!this.isDragging && !this.isPanning) return;
+                const rect = this.canvas.getBoundingClientRect();
+                const mx = e.clientX - rect.left;
+                const my = e.clientY - rect.top;
+                
+                if (this.isDragging) {
+                    this.dragNode.x = mx - this.offsetX;
+                    this.dragNode.y = my - this.offsetY;
+                } else if (this.isPanning) {
+                    this.offsetX += (mx - this.panStartX);
+                    this.offsetY += (my - this.panStartY);
+                    this.panStartX = mx;
+                    this.panStartY = my;
+                }
+                this.draw();
+            }
+
+            onMouseUp() {
+                this.isDragging = false;
+                this.isPanning = false;
+                this.dragNode = null;
+                this.canvas.style.cursor = 'grab';
+            }
+        }
+
+        // --- 5. UI CONTROLLER ---
+        const formatMoney = (num) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(num);
+        const formatPercent = (num) => new Intl.NumberFormat('en-US', { style: 'percent', minimumFractionDigits: 1 }).format(num/100);
+
+        class UI {
+            constructor() {
+                this.bindNavigation();
+                this.bindTheme();
+                this.bindMobileMenu();
+                
+                document.getElementById('langToggle').addEventListener('click', () => {
+                    window.app.i18n.toggle();
+                });
+            }
+
+            bindNavigation() {
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                        e.currentTarget.classList.add('active');
+                        
+                        const target = e.currentTarget.getAttribute('data-target');
+                        document.querySelectorAll('.view').forEach(v => v.classList.add('hidden'));
+                        document.getElementById('view-' + target).classList.remove('hidden');
+                        
+                        const titleSpan = e.currentTarget.querySelector('span[data-i18n]');
+                        if(titleSpan) {
+                            const titleEl = document.getElementById('currentViewTitle');
+                            titleEl.innerText = titleSpan.innerText;
+                            titleEl.setAttribute('data-i18n', titleSpan.getAttribute('data-i18n'));
+                        }
+
+                        if(target === 'graph' && app.graph) {
+                            setTimeout(() => { app.graph.resize(); app.graph.buildGraph(app.store.data, app.currentMetrics); }, 100);
+                        }
+                        if(window.innerWidth <= 768) document.getElementById('sidebar').classList.remove('open');
+                    });
+                });
+            }
+
+            bindTheme() {
+                const btn = document.getElementById('themeToggle');
+                btn.addEventListener('click', () => {
+                    const html = document.documentElement;
+                    const isDark = html.getAttribute('data-theme') === 'dark';
+                    html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+                    if(app.graph) app.graph.draw();
+                });
+            }
+
+            bindMobileMenu() {
+                document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+                    document.getElementById('sidebar').classList.toggle('open');
+                });
+            }
+
+            updateDashboardCards(metrics, baseMetrics) {
+                const t = (k) => window.app.i18n.t(k);
+                
+                document.getElementById('stat-revenue').innerText = formatMoney(metrics.simRev);
+                document.getElementById('stat-expenses').innerText = formatMoney(metrics.simExp);
+                document.getElementById('stat-profit').innerText = formatMoney(metrics.netProfit);
+                
+                const marginElem = document.getElementById('stat-margin');
+                marginElem.innerText = formatPercent(metrics.margin);
+                marginElem.style.color = metrics.margin > 0 ? 'var(--success)' : 'var(--danger)';
+
+                document.getElementById('stat-breakeven').innerText = metrics.breakEven === Infinity ? t('n_a') : formatMoney(metrics.breakEven);
+                
+                const runwayElem = document.getElementById('stat-runway');
+                if (metrics.runway === Infinity) {
+                    runwayElem.innerText = t('profitable');
+                    runwayElem.style.color = 'var(--success)';
+                } else {
+                    runwayElem.innerText = metrics.runway.toFixed(1) + ' ' + t('months');
+                    runwayElem.style.color = metrics.runway < 6 ? 'var(--danger)' : 'var(--warning)';
+                }
+
+                this.setTrend('trend-revenue', metrics.simRev, baseMetrics.baseRev);
+                this.setTrend('trend-expenses', metrics.simExp, baseMetrics.baseExp, true);
+                this.setTrend('trend-profit', metrics.netProfit, (baseMetrics.baseRev - baseMetrics.baseExp));
+            }
+
+            setTrend(elemId, current, base, inverse = false) {
+                const elem = document.getElementById(elemId);
+                if (base === 0) { elem.innerText = ''; return; }
+                const diff = current - base;
+                const pct = (diff / base) * 100;
+                if (Math.abs(pct) < 0.1) {
+                    elem.innerHTML = `<span>—</span>`;
+                    elem.className = 'trend neutral';
+                    return;
+                }
+                const isGood = inverse ? pct < 0 : pct > 0;
+                elem.innerHTML = `<span>${pct > 0 ? '▲' : '▼'}</span> ${Math.abs(pct).toFixed(1)}%`;
+                elem.className = `trend ${isGood ? 'up' : 'down'}`;
+            }
+
+            renderTables(data) {
+                const t = (k) => window.app.i18n.t(k);
+                
+                const tbodyR = document.querySelector('#revenueTable tbody');
+                tbodyR.innerHTML = '';
+                data.revenues.forEach(r => {
+                    tbodyR.innerHTML += `
+                        <tr>
+                            <td>${r.name}</td>
+                            <td>${formatMoney(r.amount)}</td>
+                            <td>${r.growthRate}%</td>
+                            <td>
+                                <label class="toggle">
+                                    <input type="checkbox" ${r.active?'checked':''} onchange="app.toggleItem('revenue', '${r.id}')">
+                                    <span class="slider"></span>
+                                </label>
+                            </td>
+                            <td>
+                                <button class="btn-icon" onclick="app.editItem('revenue', '${r.id}')">✏️</button>
+                                <button class="btn-icon" onclick="app.deleteItem('revenue', '${r.id}')">🗑️</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+
+                const tbodyE = document.querySelector('#expenseTable tbody');
+                tbodyE.innerHTML = '';
+                data.expenses.forEach(e => {
+                    tbodyE.innerHTML += `
+                        <tr>
+                            <td>${e.name}</td>
+                            <td>${formatMoney(e.amount)}</td>
+                            <td><span class="badge badge-${e.type}">${e.type.toUpperCase()}</span></td>
+                            <td>
+                                <label class="toggle">
+                                    <input type="checkbox" ${e.active?'checked':''} onchange="app.toggleItem('expense', '${e.id}')">
+                                    <span class="slider"></span>
+                                </label>
+                            </td>
+                            <td>
+                                <button class="btn-icon" onclick="app.editItem('expense', '${e.id}')">✏️</button>
+                                <button class="btn-icon" onclick="app.deleteItem('expense', '${e.id}')">🗑️</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+
+                const tbodyS = document.querySelector('#scenarioTable tbody');
+                tbodyS.innerHTML = '';
+                data.scenarios.forEach((s, i) => {
+                    tbodyS.innerHTML += `
+                        <tr>
+                            <td><strong>${s.name}</strong><br><small class="text-muted">${s.date}</small></td>
+                            <td>${formatMoney(s.metrics.simRev)}</td>
+                            <td>${formatMoney(s.metrics.simExp)}</td>
+                            <td style="color: ${s.metrics.netProfit>0?'var(--success)':'var(--danger)'}">${formatMoney(s.metrics.netProfit)}</td>
+                            <td>${formatPercent(s.metrics.margin)}</td>
+                            <td>
+                                <button class="btn btn-outline btn-sm" onclick="app.loadScenario(${i})">${t('load')}</button>
+                                <button class="btn-icon" onclick="app.deleteScenario(${i})">🗑️</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+            }
+
+            renderForecast(forecast) {
+                const tbody = document.querySelector('#forecastTable tbody');
+                tbody.innerHTML = '';
+                forecast.forEach((f, i) => {
+                    if(i % 3 === 0 || i === forecast.length-1) {
+                        tbody.innerHTML += `
+                            <tr>
+                                <td>M ${f.month}</td>
+                                <td style="color:var(--success)">${formatMoney(f.rev)}</td>
+                                <td style="color:var(--danger)">${formatMoney(f.exp)}</td>
+                                <td>${formatMoney(f.profit)}</td>
+                                <td><strong>${formatMoney(f.cumCash)}</strong></td>
+                            </tr>
+                        `;
+                    }
+                });
+            }
+
+            renderInsights(metrics, data) {
+                const t = (k) => window.app.i18n.t(k);
+                const list = document.getElementById('insightsList');
+                list.innerHTML = '';
+                
+                const addRule = (condition, text, type) => {
+                    if(condition) list.innerHTML += `<li class="recommendation-item ${type}"><strong>${t('insight')}</strong> ${text}</li>`;
+                };
+
+                addRule(metrics.margin < 10 && metrics.margin > 0, t('aiMarWarn'), "warning");
+                addRule(metrics.margin <= 0, t('aiMarDan'), "danger");
+                addRule(metrics.margin >= 30, t('aiMarSuc'), "success");
+                
+                let salaryExp = 0, marketingExp = 0;
+                data.expenses.forEach(e => {
+                    if(!e.active) return;
+                    let nl = e.name.toLowerCase();
+                    if(nl.includes('salar') || nl.includes('wage')) salaryExp += e.amount;
+                    if(nl.includes('market') || nl.includes('ad')) marketingExp += e.amount;
+                });
+
+                if(metrics.simRev > 0) {
+                    let salaryRatio = salaryExp / metrics.simRev;
+                    addRule(salaryRatio > 0.5, `${t('aiStaff')} (${(salaryRatio*100).toFixed(0)}% ${t('aiIndAvg')}`, "warning");
+                    
+                    let marketingRatio = marketingExp / metrics.simRev;
+                    addRule(marketingRatio < 0.03, `${t('aiMkt')} (${(marketingRatio*100).toFixed(1)}% ${t('aiInc')}`, "warning");
+                }
+
+                addRule(metrics.runway < 6, `${t('aiRun')} (${metrics.runway.toFixed(1)} ${t('aiRunSec')}`, "danger");
+
+                if(list.innerHTML === '') {
+                    list.innerHTML = `<li class="recommendation-item success">${t('aiBal')}</li>`;
+                }
+            }
+
+            openModal(type, item = null) {
+                const t = (k) => window.app.i18n.t(k);
+                document.getElementById('itemModalOverlay').classList.add('active');
+                document.getElementById('itemType').value = type;
+                
+                let titleKey = item ? `modalEdit${type === 'revenue'?'R':'E'}` : `modalAdd${type === 'revenue'?'R':'E'}`;
+                document.getElementById('modalTitle').innerText = t(titleKey);
+                
+                document.getElementById('groupGrowth').style.display = type === 'revenue' ? 'block' : 'none';
+                document.getElementById('groupType').style.display = type === 'expense' ? 'block' : 'none';
+
+                if (item) {
+                    document.getElementById('itemId').value = item.id;
+                    document.getElementById('itemName').value = item.name;
+                    document.getElementById('itemAmount').value = item.amount;
+                    if(type === 'revenue') document.getElementById('itemGrowth').value = item.growthRate;
+                    if(type === 'expense') document.getElementById('itemExpType').value = item.type;
+                } else {
+                    document.getElementById('itemForm').reset();
+                    document.getElementById('itemId').value = '';
+                }
+            }
+
+            closeModal() {
+                document.getElementById('itemModalOverlay').classList.remove('active');
+            }
+
+            showConfirm(message, callback) {
+                document.getElementById('confirmMessage').innerText = message;
+                document.getElementById('confirmModalOverlay').classList.add('active');
+                
+                const confirmBtn = document.getElementById('confirmActionBtn');
+                const newBtn = confirmBtn.cloneNode(true);
+                confirmBtn.parentNode.replaceChild(newBtn, confirmBtn);
+                
+                newBtn.addEventListener('click', () => {
+                    this.closeConfirm();
+                    if (callback) callback();
+                });
+            }
+
+            closeConfirm() {
+                document.getElementById('confirmModalOverlay').classList.remove('active');
+            }
+        }
+
+        // --- 6. MAIN APPLICATION CONTROLLER ---
+        class App {
+            constructor() {
+                window.app = this;
+                this.i18n = new I18n();
+                this.store = new Store();
+                this.ui = new UI();
+                this.charts = new ChartManager();
+                this.currentMetrics = null;
+                
+                this.init();
+            }
+
+            init() {
+                this.i18n.apply();
+                this.charts.init();
+                this.graph = new GraphVisualization('nodeGraph');
+                this.bindInputs();
+                this.bindExport();
+                this.updateAll();
+
+                setTimeout(() => this.graph.resize(), 100);
+            }
+
+            bindInputs() {
+                const sliders = ['rev', 'salary', 'rent', 'marketing', 'inflation'];
+                sliders.forEach(id => {
+                    const el = document.getElementById(`sim-${id}`);
+                    const valEl = document.getElementById(`val-sim-${id}`);
+                    
+                    if (el) {
+                        el.value = this.store.data.simulation[id];
+                        valEl.innerText = el.value + '%';
+
+                        el.addEventListener('input', (e) => {
+                            this.store.data.simulation[id] = parseFloat(e.target.value);
+                            valEl.innerText = e.target.value + '%';
+                            this.updateAll();
+                        });
+                    }
+                });
+            }
+
+            bindExport() {
+                const exportBtn = document.getElementById('exportBtn');
+                const printBtn = document.getElementById('printBtn');
+                
+                if(exportBtn) {
+                    exportBtn.addEventListener('click', () => {
+                        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(this.store.data, null, 2));
+                        const dlAnchorElem = document.createElement('a');
+                        dlAnchorElem.setAttribute("href", dataStr);
+                        dlAnchorElem.setAttribute("download", "business_simulator_export.json");
+                        dlAnchorElem.click();
+                    });
+                }
+
+                if(printBtn) {
+                    printBtn.addEventListener('click', () => {
+                        document.querySelectorAll('.nav-link')[0].click(); 
+                        setTimeout(() => window.print(), 500);
+                    });
+                }
+            }
+
+            updateAll() {
+                this.currentMetrics = Calculator.calculateMetrics(this.store.data);
+                const forecast = Calculator.generateForecast(this.currentMetrics);
+                const baseMetrics = Calculator.calculateMetrics({
+                    ...this.store.data, 
+                    simulation: { rev: 0, salary: 0, rent: 0, marketing: 0, inflation: 0 }
+                });
+                
+                this.ui.updateDashboardCards(this.currentMetrics, baseMetrics);
+                this.ui.renderTables(this.store.data);
+                this.ui.renderForecast(forecast);
+                this.ui.renderInsights(this.currentMetrics, this.store.data);
+                
+                this.charts.update(this.currentMetrics, this.store.data, forecast, baseMetrics);
+                
+                const graphView = document.getElementById('view-graph');
+                if(graphView && !graphView.classList.contains('hidden')) {
+                    this.graph.buildGraph(this.store.data, this.currentMetrics);
+                }
+
+                this.store.saveData();
+            }
+
+            saveItem() {
+                const type = document.getElementById('itemType').value;
+                const id = document.getElementById('itemId').value;
+                const list = type === 'revenue' ? this.store.data.revenues : this.store.data.expenses;
+                
+                const item = {
+                    id: id || type.charAt(0) + Date.now(),
+                    name: document.getElementById('itemName').value,
+                    amount: parseFloat(document.getElementById('itemAmount').value),
+                    active: true
+                };
+
+                if (type === 'revenue') {
+                    item.growthRate = parseFloat(document.getElementById('itemGrowth').value) || 0;
+                } else {
+                    item.type = document.getElementById('itemExpType').value;
+                }
+
+                if (id) {
+                    const index = list.findIndex(i => i.id === id);
+                    if(index > -1) {
+                        item.active = list[index].active;
+                        list[index] = item;
+                    }
+                } else {
+                    list.push(item);
+                }
+
+                this.ui.closeModal();
+                this.updateAll();
+            }
+
+            editItem(type, id) {
+                const list = type === 'revenue' ? this.store.data.revenues : this.store.data.expenses;
+                const item = list.find(i => i.id === id);
+                if(item) this.ui.openModal(type, item);
+            }
+
+            deleteItem(type, id) {
+                this.ui.showConfirm(this.i18n.t('areYouSure'), () => {
+                    const key = type === 'revenue' ? 'revenues' : 'expenses';
+                    this.store.data[key] = this.store.data[key].filter(i => i.id !== id);
+                    this.updateAll();
+                });
+            }
+
+            toggleItem(type, id) {
+                const list = type === 'revenue' ? this.store.data.revenues : this.store.data.expenses;
+                const item = list.find(i => i.id === id);
+                if(item) {
+                    item.active = !item.active;
+                    this.updateAll();
+                }
+            }
+
+            resetSimulation() {
+                const sliders = ['rev', 'salary', 'rent', 'marketing', 'inflation'];
+                sliders.forEach(id => {
+                    this.store.data.simulation[id] = 0;
+                    const el = document.getElementById(`sim-${id}`);
+                    const valEl = document.getElementById(`val-sim-${id}`);
+                    if(el) el.value = 0;
+                    if(valEl) valEl.innerText = '0%';
+                });
+                this.updateAll();
+            }
+
+            saveScenario() {
+                const nameInput = document.getElementById('scenarioName');
+                const name = nameInput.value.trim() || `Scenario ${this.store.data.scenarios.length + 1}`;
+                
+                this.store.data.scenarios.push({
+                    name,
+                    date: new Date().toLocaleDateString(),
+                    simulation: JSON.parse(JSON.stringify(this.store.data.simulation)),
+                    revenues: JSON.parse(JSON.stringify(this.store.data.revenues)),
+                    expenses: JSON.parse(JSON.stringify(this.store.data.expenses)),
+                    metrics: this.currentMetrics
+                });
+                
+                nameInput.value = '';
+                this.updateAll();
+            }
+
+            loadScenario(index) {
+                const s = this.store.data.scenarios[index];
+                if(!s) return;
+                
+                this.ui.showConfirm(this.i18n.t('areYouSure'), () => {
+                    this.store.data.simulation = JSON.parse(JSON.stringify(s.simulation));
+                    this.store.data.revenues = JSON.parse(JSON.stringify(s.revenues));
+                    this.store.data.expenses = JSON.parse(JSON.stringify(s.expenses));
+                    
+                    const sliders = ['rev', 'salary', 'rent', 'marketing', 'inflation'];
+                    sliders.forEach(id => {
+                        const el = document.getElementById(`sim-${id}`);
+                        const valEl = document.getElementById(`val-sim-${id}`);
+                        if(el) el.value = this.store.data.simulation[id];
+                        if(valEl) valEl.innerText = this.store.data.simulation[id] + '%';
+                    });
+
+                    this.updateAll();
+                });
+            }
+
+            deleteScenario(index) {
+                this.ui.showConfirm(this.i18n.t('areYouSure'), () => {
+                    this.store.data.scenarios.splice(index, 1);
+                    this.updateAll();
+                });
+            }
+        }
+
+        // Initialize application
+        new App();
+
+    </script>
+</body>
+</html>
